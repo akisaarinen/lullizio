@@ -1,0 +1,4 @@
+cp example_config.rb config.rb
+vim config.rb
+ruby lullizio.rb
+
