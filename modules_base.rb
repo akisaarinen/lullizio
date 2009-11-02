@@ -12,11 +12,11 @@ class Bot
     }
   end
 
-  def modules_privmsg(reply_to, msg)
+  def modules_privmsg(from, reply_to, msg)
     @modules.each { |m|
       begin
         name = "#{m}_privmsg"
-        method(name).call(self, reply_to, msg)
+        method(name).call(self, from, reply_to, msg)
       rescue NoMethodError => nme
       rescue Exception => e
         puts "Error calling privmsg for #{m}: #{e.message}"

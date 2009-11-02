@@ -1,9 +1,7 @@
-#!/usr/local/bin/ruby
-
 Kernel.load("youtube.rb")
 
 class Bot
-  def youtube_privmsg(bot, reply_to, msg)
+  def youtube_privmsg(bot, from, reply_to, msg)
     msg.split(" ").each { |word|
       if word =~ /.*youtube.com\/watch?/
         youtube_title = parseYoutube(word)

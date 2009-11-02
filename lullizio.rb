@@ -62,7 +62,7 @@ class Bot
             print e.backtrace.join("\n")
           end
         else
-          modules_privmsg(reply_to, msg)
+          modules_privmsg(from, reply_to, msg)
         end
       else
         puts "<-- #{s}"
