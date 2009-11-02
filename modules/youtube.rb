@@ -16,7 +16,7 @@ end
 
 def parseYoutube(url)
   if URI.parse(url).host =~ /.*youtube\.com/
-    video = URI.parse(url).query.match(/v=([a-z0-9]*)/)[0][2,15]
+    video = URI.parse(url).query.match(/v=([^ &]*)/)[0][2,15]
     api = "http://gdata.youtube.com/feeds/api/videos/" + video
     print api + "\n"
 
