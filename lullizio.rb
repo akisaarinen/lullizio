@@ -44,7 +44,7 @@ class Bot
       when /^PING :(.+)$/i
         puts "[ Server ping ]"
         send "PONG :#{$1}"
-      when /^:(.+?)!(.+?)@(.+?)\sPRIVMSG\s(.+)\s:(.*)$/i
+      when /^:([^ ]+?)!([^ ]+?)@([^ ]+?)\sPRIVMSG\s([^ ]+)\s:(.*)$/i
         puts "<-- #{s}"
         from = $1
         target = $4
