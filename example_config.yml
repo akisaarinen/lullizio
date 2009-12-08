@@ -8,3 +8,4 @@ modules_dir:      modules
 excluded_modules: ["youtube"]
 module_config:
   module_value:   "some example value for module usage"
+  monkey_file:    "monkey_expr.yml"

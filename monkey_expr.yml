@@ -1,0 +1,3 @@
+expressions: {  
+  "^banana (.*)$": "yummy banana {1}" # regex with matches mapped {1}, {2}, etc.
+}
