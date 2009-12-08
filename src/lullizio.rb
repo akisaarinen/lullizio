@@ -3,7 +3,8 @@ require "modules_base"
 require "yaml"
 
 class Bot
-  def initialize(config_file)
+  def initialize(base_path, config_file)
+    @base_path = base_path
     @config_file = config_file
     reload_config
   end
@@ -86,8 +87,9 @@ class Bot
   end
 end
 
-config_file = "../" + (ARGV.shift || "config.yml")
-bot = Bot.new(config_file)
+base_path = ARGV.shift
+config_file = base_path + "/" + (ARGV.shift || "config.yml")
+bot = Bot.new(base_path, config_file)
 bot.modules_reload()
 
 bot.connect()
