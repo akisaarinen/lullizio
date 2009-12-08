@@ -1,5 +1,3 @@
-#!/usr/local/bin/ruby
-
 class Bot
   def modules_reload
     @modules.each { |m|
