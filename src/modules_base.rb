@@ -1,13 +1,22 @@
 class Bot
   def modules_reload
-    @modules.each { |m|
-      begin
-        Kernel.load("module_#{m}.rb")
-      rescue Exception => e
-        puts "Error registering module #{m}: #{e.message}"
-        print e.backtrace.join("\n")
-      end
-    }
+    @modules = []
+    Dir.new(@modules_dir).entries.
+      select { |m| m =~ /^module_.*\.rb$/ }.
+      map { |m| 
+        m =~ /^module_(.*)\.rb$/
+        $1
+      }.
+      delete_if { |m| @excluded_modules.include?(m) }.each { |m|
+        begin
+          Kernel.load("#{@modules_dir}/module_#{m}.rb")
+          @modules.push(m)
+          puts "Registered module #{m}"
+        rescue Exception => e
+          puts "Error registering module #{m}: #{e.message}"
+          print e.backtrace.join("\n")
+        end
+      }
   end
 
   def modules_privmsg(from, reply_to, msg)

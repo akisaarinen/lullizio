@@ -16,7 +16,7 @@ class Bot
     @realname = config["realname"]
     @channels = config["channels"]
     @modules_dir = config["modules_dir"]
-    @modules = config["modules"]
+    @excluded_modules = config["excluded_modules"]
     $LOAD_PATH << @modules_dir
   end
   def send(s)
