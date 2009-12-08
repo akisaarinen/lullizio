@@ -1,4 +1,4 @@
-cp example_config.yml config.yml
-vim config.yml
-./lullizio.sh
+cp example_config.yml myconfig.yml
+vim myconfig.yml
+./lullizio.sh myconfig.yml
 
