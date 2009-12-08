@@ -12,6 +12,15 @@ class Bot
           Kernel.load("#{@modules_dir}/module_#{m}.rb")
           @modules.push(m)
           puts "Registered module #{m}"
+          begin
+            init_method = "#{m}_initialize"
+            method(init_method).call(self)
+          rescue NoMethodError => nme
+          rescue NameError => ne
+          rescue Exception => e
+            puts "Error initializing module #{m}: #{e}"
+            print e.backtrace.join("\n")
+          end
         rescue Exception => e
           puts "Error registering module #{m}: #{e.message}"
           print e.backtrace.join("\n")
