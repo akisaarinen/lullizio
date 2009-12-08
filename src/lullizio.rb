@@ -1,13 +1,13 @@
 require "socket"
 require "modules_base"
+require "yaml"
 
 class Bot
   def initialize
     reload_config
   end
   def reload_config
-    Kernel.load("config.rb")
-    config = load_config
+    config = YAML.load_file("../config.yml")
     @server = config["server"]
     @port = config["port"]
     @nick = config["nick"]

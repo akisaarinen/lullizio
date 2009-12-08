@@ -1,4 +1,4 @@
-cp example_config.rb config.rb
-vim config.rb
-ruby lullizio.rb
+cp example_config.yml config.yml
+vim config.yml
+./lullizio.sh
 
