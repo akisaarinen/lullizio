@@ -6,3 +6,5 @@ realname:         My Lullizio Bot
 channels:         ["#mybot_pwns", "#lullizio_ftw"]
 modules_dir:      modules
 excluded_modules: ["youtube"]
+module_config:
+  module_value:   "some example value for module usage"
