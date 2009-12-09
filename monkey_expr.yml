@@ -1,3 +1,3 @@
-expressions: {  
-  "^banana (.*)$": "yummy banana {1}" # regex with matches mapped {1}, {2}, etc.
-}
+--- !!omap # required to create an ordered map in YAML
+- "^banana (.*)$": "yummy banana {1}" # regex with matches mapped {1}, {2}, etc.
+- "hello": "{from}: hello" # target to person with {from}
