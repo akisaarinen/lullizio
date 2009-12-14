@@ -1,18 +1,7 @@
 require 'uri'
 require 'net/http'
 
-def fetch(uri_str, limit = 10)
-  # You should choose better exception.
-  raise ArgumentError, 'HTTP redirect too deep' if limit == 0
-
-  response = Net::HTTP.get_response(URI.parse(uri_str))
-  case response
-  when Net::HTTPSuccess     then response
-  when Net::HTTPRedirection then fetch(response['location'], limit - 1)
-  else
-    response.error!
-  end
-end
+Kernel.load('fetch_uri.rb')
 
 def parseYoutube(url)
   if URI.parse(url).host =~ /.*youtube\.com/
@@ -20,7 +9,7 @@ def parseYoutube(url)
     api = "http://gdata.youtube.com/feeds/api/videos/" + video
     print api + "\n"
 
-  reply = fetch(api)
+    reply = fetch_uri(api)
     return "" if (reply.code != "200") 
     
     title = "?"
