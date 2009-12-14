@@ -5,7 +5,7 @@ username:         my_bot
 realname:         My Lullizio Bot
 channels:         ["#mybot_pwns", "#lullizio_ftw"]
 modules_dir:      "src/modules"
-excluded_modules: ["youtube"]
+excluded_modules: ["lmgtfy"]
 module_config:
   module_value:   "some example value for module usage"
   monkey_file:    "monkey_expr.yml"
