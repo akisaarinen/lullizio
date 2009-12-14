@@ -11,7 +11,9 @@ end
 
 class Monkey
   def initialize(base_path, filename)
-    @expressions = YAML.load_file(base_path + "/" + filename)
+    cfg_file = base_path + "/" + filename
+    puts "Reading monkey config from '#{cfg_file}'"
+    @expressions = YAML.load_file(cfg_file)
   end
 
   def privmsg(bot, from, reply_to, msg)

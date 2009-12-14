@@ -16,7 +16,7 @@ class Bot
     @username = config["username"]
     @realname = config["realname"]
     @channels = config["channels"]
-    @modules_dir = config["modules_dir"]
+    @modules_dir = @base_path + "/" + config["modules_dir"]
     @excluded_modules = config["excluded_modules"]
     @module_config = config["module_config"]
     $LOAD_PATH << @modules_dir
