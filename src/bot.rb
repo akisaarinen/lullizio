@@ -34,8 +34,11 @@ class Bot
         puts "<-- #{msg.raw_msg}"
 
       when IrcMsg::PRIVMSG
-        @module_handler.handle_privmsg(msg.from, msg.target, msg.text)
-
+        if msg.text == "!reload"
+          reload_config
+        else
+          @module_handler.handle_privmsg(msg.from, msg.target, msg.text)
+        end
       else
     end
   end

@@ -97,5 +97,12 @@ class TestBot < Test::Unit::TestCase
       @module_handler.expects(:handle_privmsg).with("from", "target", "text")
       @bot.handle_state
     end
+
+    should "reload configuration on request" do
+      msg = PrivMsg.new("from", "target", "!reload")
+      @connector.expects(:read_input).returns(msg)
+      @bot.expects(:reload_config)
+      @bot.handle_state
+    end
   end
 end
