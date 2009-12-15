@@ -58,7 +58,10 @@ class Bot
     @excluded_modules = config["excluded_modules"]
     @module_config = config["module_config"]
     $LOAD_PATH << @modules_dir
+
+    @module_handler.reload(self, @modules_dir, @excluded_modules)
   end
+  
 
   def create_connector(server, port, nick, username, realname, channels)
     IrcConnector.new(server, port, nick, username, realname, channels)

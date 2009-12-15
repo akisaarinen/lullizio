@@ -16,11 +16,13 @@ class TestBot < Test::Unit::TestCase
     @base_path = "base_path"
     @config_path = "path/to/config_file.yml"
     YAML.stubs(:load_file).with(@config_path).returns(@config)
+    @module_handler = mock()
+    @module_handler.expects(:reload)
   end
   
   context "Bot" do
     setup do
-      @bot = Bot.new(@base_path, @config_path, mock())
+      @bot = Bot.new(@base_path, @config_path, @module_handler)
     end
 
     should "load nickname from config in initialization" do 
@@ -35,7 +37,7 @@ class TestBot < Test::Unit::TestCase
   context "Disconnected Bot" do
     setup do
       @connector = mock()
-      @bot = Bot.new(@base_path, @config_path, mock())
+      @bot = Bot.new(@base_path, @config_path, @module_handler)
       @bot.stubs(:create_connector).
           with("server", 6667, "nick", "username", "realname", ["#first", "#second"]).
           returns(@connector)
@@ -61,7 +63,6 @@ class TestBot < Test::Unit::TestCase
   context "Connected Bot" do
     setup do
       @connector = mock()
-      @module_handler = mock()
       @bot = Bot.new(@base_path, @config_path, @module_handler)
       @bot.stubs(:create_connector).returns(@connector)
       @connector.stubs(:connect)
