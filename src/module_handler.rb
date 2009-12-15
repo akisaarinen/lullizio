@@ -15,7 +15,9 @@ class ModuleHandler
       delete_if { |m| @excluded_modules.include?(m) }.each { |m|
         begin
           Kernel.load("#{@modules_dir}/module_#{m}.rb")
-          instance = eval("#{m.capitalize}.new")
+          classCreationExpr = "Module_#{m.capitalize}.new"
+          puts "Creating #{m} with '#{classCreationExpr}'"
+          instance = eval(classCreationExpr)
           begin
             instance.init_module(@bot)
             modules.push(instance)

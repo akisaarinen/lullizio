@@ -1,9 +1,9 @@
 require File.dirname(__FILE__) + '/test_helper.rb'
 require 'module_handler'
 
-class Firstmodule 
+class Module_First 
 end
-class Secondmodule 
+class Module_Second 
 end
 
 class TestModuleHandler < Test::Unit::TestCase
@@ -28,12 +28,12 @@ class TestModuleHandler < Test::Unit::TestCase
       dir = mock()
       firstModule = mock()
       secondModule = mock()
-      dir.stubs(:entries).returns(["module_firstmodule.rb", "module_excluded.rb", "module_secondmodule.rb"])
+      dir.stubs(:entries).returns(["module_first.rb", "module_excluded.rb", "module_second.rb"])
       Dir.stubs(:new).returns(dir)
-      Kernel.expects(:load).with("modules_dir/module_firstmodule.rb")
-      Kernel.expects(:load).with("modules_dir/module_secondmodule.rb")
-      Firstmodule.stubs(:new).returns(firstModule)
-      Secondmodule.stubs(:new).returns(secondModule)
+      Kernel.expects(:load).with("modules_dir/module_first.rb")
+      Kernel.expects(:load).with("modules_dir/module_second.rb")
+      Module_First.stubs(:new).returns(firstModule)
+      Module_Second.stubs(:new).returns(secondModule)
       firstModule.expects(:init_module).with(@bot)
       secondModule.expects(:init_module).with(@bot)
       @handler.reload(@bot, "modules_dir", ["excluded"])
@@ -46,10 +46,10 @@ class TestModuleHandler < Test::Unit::TestCase
       @handler = ModuleHandler.new
       dir = mock()
       @firstModule = mock()
-      dir.stubs(:entries).returns(["module_firstmodule.rb"])
+      dir.stubs(:entries).returns(["module_first.rb"])
       Dir.stubs(:new).returns(dir)
-      Kernel.expects(:load).with("modules_dir/module_firstmodule.rb")
-      Firstmodule.stubs(:new).returns(@firstModule)
+      Kernel.expects(:load).with("modules_dir/module_first.rb")
+      Module_First.stubs(:new).returns(@firstModule)
       @firstModule.expects(:init_module).with(@bot)
       @handler.reload(@bot, "modules_dir", [])
       assert_equal [@firstModule], @handler.modules
