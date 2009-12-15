@@ -6,13 +6,11 @@ class Module_Monkey
     cfg_file = bot.base_path + "/" + filename
     puts "Reading monkey config from '#{cfg_file}'"
     @expressions = YAML.load_file(cfg_file)
-    puts "Read"
   end
 
   def privmsg(bot, from, reply_to, msg)
     @expressions.value.each { |expr|
       expr.each { |trigger, reply| 
-        puts "trig"
         if m = Regexp.new(trigger).match(msg)
           updated_reply = reply.clone
           (m.length - 1).times.map { |i| i + 1 }.each { |i|
