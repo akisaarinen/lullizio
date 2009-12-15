@@ -26,8 +26,8 @@ class Bot
     $LOAD_PATH << @modules_dir
   end
   def send(s)
-    s = s.gsub /\n/, ''
-    s = s.gsub /\r/, ''
+    s = s.gsub(/\n/, '')
+    s = s.gsub(/\r/, '')
     puts "--> #{s}"
     @ircsocket.send "#{s}\n", 0
   end
