@@ -65,5 +65,28 @@ class TestIrcConnector < Test::Unit::TestCase
       assert_equal MsgType::UNHANDLED, msg.msg_type
       assert_equal raw_msg, msg.raw_msg
     end
+
+    should "detect that there are no new messages" do
+      IO.stubs(:select).returns(nil)
+      msg = @connector.read_input
+      assert_equal MsgType::NO_MSG, msg.msg_type
+    end
+
+    should "detect disconnection" do
+      ready = [[@socket]]
+      IO.stubs(:select).returns(ready)
+      @socket.stubs(:eof).returns(true)
+      msg = @connector.read_input
+      assert_equal MsgType::DISCONNECTED, msg.msg_type
+    end
+
+    should "handle message" do
+      @connector.expects(:handle_server_input).with("a message")
+      ready = [[@socket]]
+      IO.stubs(:select).returns(ready)
+      @socket.stubs(:eof).returns(false)
+      @socket.expects(:gets).returns("a message")
+      @connector.read_input
+    end
   end
 end
