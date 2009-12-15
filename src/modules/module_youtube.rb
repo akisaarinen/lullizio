@@ -1,11 +1,12 @@
 Kernel.load("youtube.rb")
 
-class Bot
-  def youtube_privmsg(bot, from, reply_to, msg)
+class Module_Youtube
+  def init_module(bot) end
+  def privmsg(bot, from, reply_to, msg)
     msg.split(" ").each { |word|
       if word =~ /youtube.com\/watch?/
         youtube_title = parseYoutube(word)
-        bot.privmsg(reply_to, youtube_title)
+        bot.send_privmsg(reply_to, youtube_title)
       end
     }
   end
