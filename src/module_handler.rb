@@ -45,8 +45,6 @@ class ModuleHandler
     @modules.each { |m|
       begin
         m.privmsg(@bot, from, reply_to, msg)
-      rescue NoMethodError => nme
-      rescue NameError => ne
       rescue Exception => e
         puts "Error calling privmsg for #{m}: #{e.message}"
         print e.backtrace.join("\n")
