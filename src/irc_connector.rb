@@ -1,14 +1,12 @@
 require "socket"
 
-class MsgType
+class IrcMsg
   NO_MSG = 0
   DISCONNECTED = 1
   PING = 2
   PRIVMSG = 3
   UNHANDLED = 4
-end
 
-class IrcMsg
   attr_accessor :msg_type
   def initialize(msg_type)
     @msg_type = msg_type
@@ -18,7 +16,7 @@ end
 class PrivMsg < IrcMsg
   attr_accessor :from, :target, :text
   def initialize(from, target, text)
-    super(MsgType::PRIVMSG)
+    super(IrcMsg::PRIVMSG)
     @from = from
     @target = target
     @text = text
@@ -28,7 +26,7 @@ end
 class UnhandledMsg < IrcMsg
   attr_accessor :raw_msg
   def initialize(raw_msg) 
-    super(MsgType::UNHANDLED) 
+    super(IrcMsg::UNHANDLED) 
     @raw_msg = raw_msg
   end
 end
@@ -72,10 +70,10 @@ class IrcConnector
 
   def read_input
     ready = IO.select([@ircsocket], nil, nil, nil)
-    return IrcMsg.new(MsgType::NO_MSG) if !ready
+    return IrcMsg.new(IrcMsg::NO_MSG) if !ready
     for s in ready[0]
       if s == @ircsocket then
-        return IrcMsg.new(MsgType::DISCONNECTED) if @ircsocket.eof
+        return IrcMsg.new(IrcMsg::DISCONNECTED) if @ircsocket.eof
         s = @ircsocket.gets
         handle_server_input(s)
       end
@@ -86,7 +84,7 @@ class IrcConnector
     case s.strip
       when /^PING :(.+)$/i
         send "PONG :#{$1}"
-        return IrcMsg.new(MsgType::PING)
+        return IrcMsg.new(IrcMsg::PING)
 
       when /^:([^ ]+?)!([^ ]+?)@([^ ]+?)\sPRIVMSG\s([^ ]+)\s:(.*)$/i
         from = $1

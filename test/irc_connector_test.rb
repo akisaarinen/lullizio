@@ -38,13 +38,13 @@ class TestIrcConnector < Test::Unit::TestCase
     should "reply with pong to ping" do
       @socket.expects(:send).with("PONG :12345\n", 0)
       msg = @connector.handle_server_input("PING :12345")
-      assert_equal MsgType::PING, msg.msg_type
+      assert_equal IrcMsg::PING, msg.msg_type
     end
 
     should "detect privmsg to channel" do 
       privmsg = ":nickname!username@some.source.host PRIVMSG #channel :text and more text"
       msg = @connector.handle_server_input(privmsg)
-      assert_equal MsgType::PRIVMSG, msg.msg_type
+      assert_equal IrcMsg::PRIVMSG, msg.msg_type
       assert_equal "nickname", msg.from
       assert_equal "#channel", msg.target
       assert_equal "text and more text", msg.text
@@ -53,7 +53,7 @@ class TestIrcConnector < Test::Unit::TestCase
     should "detect privmsg to individual user" do 
       privmsg = ":nickname!username@some.source.host PRIVMSG target_nick :text and more text"
       msg = @connector.handle_server_input(privmsg)
-      assert_equal MsgType::PRIVMSG, msg.msg_type
+      assert_equal IrcMsg::PRIVMSG, msg.msg_type
       assert_equal "nickname", msg.from
       assert_equal "target_nick", msg.target
       assert_equal "text and more text", msg.text
@@ -62,14 +62,14 @@ class TestIrcConnector < Test::Unit::TestCase
     should "handle unexpected input" do 
       raw_msg = "SOME MESSAGE :from irc server that is invalid"
       msg = @connector.handle_server_input(raw_msg)
-      assert_equal MsgType::UNHANDLED, msg.msg_type
+      assert_equal IrcMsg::UNHANDLED, msg.msg_type
       assert_equal raw_msg, msg.raw_msg
     end
 
     should "detect that there are no new messages" do
       IO.stubs(:select).returns(nil)
       msg = @connector.read_input
-      assert_equal MsgType::NO_MSG, msg.msg_type
+      assert_equal IrcMsg::NO_MSG, msg.msg_type
     end
 
     should "detect disconnection" do
@@ -77,7 +77,7 @@ class TestIrcConnector < Test::Unit::TestCase
       IO.stubs(:select).returns(ready)
       @socket.stubs(:eof).returns(true)
       msg = @connector.read_input
-      assert_equal MsgType::DISCONNECTED, msg.msg_type
+      assert_equal IrcMsg::DISCONNECTED, msg.msg_type
     end
 
     should "handle message" do
