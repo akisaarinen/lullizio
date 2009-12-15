@@ -2,8 +2,8 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 require "rubygems"
-require "modules_base"
 require "irc_connector"
+require "module_handler"
 require "yaml"
 
 class Bot

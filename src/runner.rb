@@ -1,13 +1,16 @@
-require 'lullizio'
+require "bot"
+require "module_handler"
 
 base_path = ARGV.shift
 config_file = base_path + "/" + (ARGV.shift || "config.yml")
-bot = Bot.new(base_path, config_file)
-bot.modules_reload()
 
+module_handler = ModuleHandler.new
+bot = Bot.new(base_path, config_file, module_handler)
 bot.connect()
 begin
-  bot.main_loop()
+  while true
+    bot.handle_state
+  end
 rescue Interrupt
 rescue Exception => detail
   puts detail.message()

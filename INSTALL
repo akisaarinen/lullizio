@@ -1,4 +1,4 @@
 cp example_config.yml myconfig.yml
 vim myconfig.yml
-./lullizio.sh myconfig.yml
+./run_bot.sh myconfig.yml
 
