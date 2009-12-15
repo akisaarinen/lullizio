@@ -22,8 +22,6 @@ class ModuleHandler
             instance.init_module(@bot)
             modules.push(instance)
             puts "Registered module #{m}"
-          rescue NoMethodError => nme
-          rescue NameError => ne
           rescue Exception => e
             puts "Error initializing module #{m}: #{e}"
             print e.backtrace.join("\n")
