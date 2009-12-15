@@ -16,7 +16,7 @@ class ModuleHandler
         begin
           Kernel.load("#{@modules_dir}/module_#{m}.rb")
           classCreationExpr = "Module_#{m.capitalize}.new"
-          puts "Creating #{m} with '#{classCreationExpr}'"
+          #puts "Creating #{m} with '#{classCreationExpr}'"
           instance = eval(classCreationExpr)
           begin
             instance.init_module(@bot)
