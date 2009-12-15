@@ -66,8 +66,14 @@ class TestIrcConnector < Test::Unit::TestCase
       assert_equal raw_msg, msg.raw_msg
     end
 
-    should "detect that there are no new messages" do
+    should "detect that there are no new messages when select returns nil" do
       IO.stubs(:select).returns(nil)
+      msg = @connector.read_input
+      assert_equal IrcMsg::NO_MSG, msg.msg_type
+    end
+
+    should "detect that there are no new messages when select returns empty list" do
+      IO.stubs(:select).returns([[]])
       msg = @connector.read_input
       assert_equal IrcMsg::NO_MSG, msg.msg_type
     end

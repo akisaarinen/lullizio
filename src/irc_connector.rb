@@ -75,9 +75,10 @@ class IrcConnector
       if s == @ircsocket then
         return IrcMsg.new(IrcMsg::DISCONNECTED) if @ircsocket.eof
         s = @ircsocket.gets
-        handle_server_input(s)
+        return handle_server_input(s)
       end
     end
+    return IrcMsg.new(IrcMsg::NO_MSG)
   end
 
   def handle_server_input(s)
