@@ -11,7 +11,7 @@ class TestBot < Test::Unit::TestCase
       "realname" => "realname",
       "channels" => ["#first", "#second"],
       "modules_dir" => "modules_dir",
-      "module_config" => []
+      "module_config" => {"some key" => "some value"}
     }
     @base_path = "base_path"
     @config_path = "path/to/config_file.yml"
@@ -27,6 +27,14 @@ class TestBot < Test::Unit::TestCase
 
     should "load nickname from config in initialization" do 
       assert_equal "nick", @bot.nick
+    end
+
+    should "give base path" do
+      assert_equal @base_path, @bot.base_path
+    end
+
+    should "give module specific configuration" do 
+      assert_equal ({"some key" => "some value"}), @bot.module_config
     end
 
     should "add modules dir with base path to $LOAD_PATH" do

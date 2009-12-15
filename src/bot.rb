@@ -7,7 +7,7 @@ require "irc_connector"
 require "yaml"
 
 class Bot
-  attr_accessor :nick, :connected
+  attr_accessor :nick, :connected, :base_path, :module_config
 
   def initialize(base_path, config_file, module_handler)
     @base_path = base_path
