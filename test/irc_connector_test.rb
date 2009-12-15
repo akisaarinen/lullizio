@@ -29,5 +29,10 @@ class TestIrcConnector < Test::Unit::TestCase
       @socket.expects(:send).with("message with line feeds removed\n", 0)
       @connector.send("message \nwith\r \nline\r\n feeds removed\r\n\n")
     end
+
+    should "send privmsg" do 
+      @socket.expects(:send).with("PRIVMSG target :hello, world\n", 0)
+      @connector.privmsg("target", "hello, world")
+    end
   end
 end

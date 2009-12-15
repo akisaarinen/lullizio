@@ -32,4 +32,8 @@ class IrcConnector
       send "JOIN #{channel}"
     }
   end
+
+  def privmsg(target, msg)
+    send "PRIVMSG #{target} :#{msg}"
+  end
 end
