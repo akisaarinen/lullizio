@@ -34,5 +34,16 @@ class TestIrcConnector < Test::Unit::TestCase
       @socket.expects(:send).with("PRIVMSG target :hello, world\n", 0)
       @connector.privmsg("target", "hello, world")
     end
+
+    should "reply with pong to ping" do
+      @socket.expects(:send).with("PONG :12345\n", 0)
+      msg = @connector.handle_server_input("PING :12345")
+      assert_equal MsgType::PING, msg.msg_type
+    end
+
+    should "handle unexpected input" do 
+      msg = @connector.handle_server_input("SOME MESSAGE :from irc server that is invalid")
+      assert_equal MsgType::UNHANDLED, msg.msg_type
+    end
   end
 end
