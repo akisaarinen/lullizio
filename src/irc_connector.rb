@@ -2,7 +2,8 @@ require "socket"
 
 class MsgType
   PING = 1
-  UNHANDLED = 2
+  PRIVMSG = 2
+  UNHANDLED = 3
 end
 
 class IrcMsg
@@ -16,8 +17,22 @@ class PingMsg < IrcMsg
   def initialize() super(MsgType::PING) end
 end
 
+class PrivMsg < IrcMsg
+  attr_accessor :from, :target, :text
+  def initialize(from, target, text)
+    super(MsgType::PRIVMSG)
+    @from = from
+    @target = target
+    @text = text
+  end
+end
+
 class UnhandledMsg < IrcMsg
-  def initialize() super(MsgType::UNHANDLED) end
+  attr_accessor :raw_msg
+  def initialize(raw_msg) 
+    super(MsgType::UNHANDLED) 
+    @raw_msg = raw_msg
+  end
 end
 
 class IrcConnector
@@ -62,9 +77,15 @@ class IrcConnector
       when /^PING :(.+)$/i
         send "PONG :#{$1}"
         return PingMsg.new
+
+      when /^:([^ ]+?)!([^ ]+?)@([^ ]+?)\sPRIVMSG\s([^ ]+)\s:(.*)$/i
+        from = $1
+        target = $4
+        text = $5
+        return PrivMsg.new(from, target, text)
+
       else
-        puts "<-- #{s}"
-        return UnhandledMsg.new
+        return UnhandledMsg.new(s)
     end
   end
 end

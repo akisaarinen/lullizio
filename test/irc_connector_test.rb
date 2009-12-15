@@ -41,9 +41,29 @@ class TestIrcConnector < Test::Unit::TestCase
       assert_equal MsgType::PING, msg.msg_type
     end
 
+    should "detect privmsg to channel" do 
+      privmsg = ":nickname!username@some.source.host PRIVMSG #channel :text and more text"
+      msg = @connector.handle_server_input(privmsg)
+      assert_equal MsgType::PRIVMSG, msg.msg_type
+      assert_equal "nickname", msg.from
+      assert_equal "#channel", msg.target
+      assert_equal "text and more text", msg.text
+    end
+
+    should "detect privmsg to individual user" do 
+      privmsg = ":nickname!username@some.source.host PRIVMSG target_nick :text and more text"
+      msg = @connector.handle_server_input(privmsg)
+      assert_equal MsgType::PRIVMSG, msg.msg_type
+      assert_equal "nickname", msg.from
+      assert_equal "target_nick", msg.target
+      assert_equal "text and more text", msg.text
+    end
+
     should "handle unexpected input" do 
-      msg = @connector.handle_server_input("SOME MESSAGE :from irc server that is invalid")
+      raw_msg = "SOME MESSAGE :from irc server that is invalid"
+      msg = @connector.handle_server_input(raw_msg)
       assert_equal MsgType::UNHANDLED, msg.msg_type
+      assert_equal raw_msg, msg.raw_msg
     end
   end
 end
