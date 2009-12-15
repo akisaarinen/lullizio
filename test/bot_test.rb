@@ -20,7 +20,7 @@ class TestBot < Test::Unit::TestCase
   
   context "Bot" do
     setup do
-      @bot = Bot.new(@base_path, @config_path)
+      @bot = Bot.new(@base_path, @config_path, mock())
     end
 
     should "load nickname from config in initialization" do 
@@ -35,7 +35,7 @@ class TestBot < Test::Unit::TestCase
   context "Disconnected Bot" do
     setup do
       @connector = mock()
-      @bot = Bot.new(@base_path, @config_path)
+      @bot = Bot.new(@base_path, @config_path, mock())
       @bot.stubs(:create_connector).
           with("server", 6667, "nick", "username", "realname", ["#first", "#second"]).
           returns(@connector)
@@ -43,12 +43,58 @@ class TestBot < Test::Unit::TestCase
     should "connect" do 
       @connector.expects(:connect).returns(nil)
       @bot.connect
+      assert_equal true, @bot.connected
     end
     should "raise exception" do
       @connector.expects(:connect).raises(Exception)
       assert_raise Exception do
         @bot.connect
       end
+    end
+    should "attempt reconnection and then read input" do
+      @connector.expects(:connect)
+      @connector.expects(:read_input).returns(IrcMsg.new(IrcMsg::NO_MSG))
+      @bot.handle_state
+    end
+  end
+  
+  context "Connected Bot" do
+    setup do
+      @connector = mock()
+      @module_handler = mock()
+      @bot = Bot.new(@base_path, @config_path, @module_handler)
+      @bot.stubs(:create_connector).returns(@connector)
+      @connector.stubs(:connect)
+      @bot.connect
+    end
+
+    should "send raw msg" do
+      @connector.expects(:send).with("a raw message")
+      @bot.send_raw("a raw message")
+    end
+
+    should "send privmsg" do 
+      @connector.expects(:privmsg).with("target", "message body")
+      @bot.send_privmsg("target", "message body")
+    end
+
+    should "disconnect when receiving disconnect message" do 
+      @connector.expects(:read_input).returns(IrcMsg.new(IrcMsg::DISCONNECTED))
+      @bot.handle_state
+      assert_equal false, @bot.connected
+    end
+
+    should "print unhandled message" do
+      @bot.expects(:puts).with("<-- some unknown text").returns(nil)
+      @connector.expects(:read_input).returns(UnhandledMsg.new("some unknown text"))
+      @bot.handle_state
+    end
+
+    should "give handling of privmsg to module handler" do
+      msg = PrivMsg.new("from", "target", "text")
+      @connector.expects(:read_input).returns(msg)
+      @module_handler.expects(:handle_privmsg).with("from", "target", "text")
+      @bot.handle_state
     end
   end
 end

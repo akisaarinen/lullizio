@@ -7,18 +7,41 @@ require "irc_connector"
 require "yaml"
 
 class Bot
-  attr_accessor :nick
+  attr_accessor :nick, :connected
 
-  def initialize(base_path, config_file)
+  def initialize(base_path, config_file, module_handler)
     @base_path = base_path
     @config_file = config_file
+    @module_handler = module_handler
+    @connected = false
     reload_config
   end
-
+  
   def connect
     @connector = create_connector(@server, @port, @nick, @username, @realname, @channels)
     @connector.connect
+    @connected = true
   end
+
+  def handle_state
+    connect if @connected == false
+    msg = @connector.read_input
+    case msg.msg_type
+      when IrcMsg::DISCONNECTED
+        @connected = false
+
+      when IrcMsg::UNHANDLED
+        puts "<-- #{msg.raw_msg}"
+
+      when IrcMsg::PRIVMSG
+        @module_handler.handle_privmsg(msg.from, msg.target, msg.text)
+
+      else
+    end
+  end
+
+  def send_raw(msg) @connector.send(msg) end
+  def send_privmsg(target, msg) @connector.privmsg(target, msg) end
 
   private
 
