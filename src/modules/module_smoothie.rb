@@ -17,7 +17,8 @@ class Module_Smoothie
     @known_products = {
       "eineshampurilainen" => { "kcal" => 70 },
       "tropicana" => {"kcal" => 50 },
-      "gefilus" => {"kcal" => 41 }
+      "gefilus" => {"kcal" => 41 },
+      "rahka" => {"kcal" => 57 }
     }
   end
   
