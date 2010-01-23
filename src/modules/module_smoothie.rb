@@ -9,6 +9,7 @@ class Module_Smoothie
       "omena" => 11061,
       "paaryna" => 11062,
       "banaani" => 11049,
+      "viinirypale" => 423,
       "pekoni" => 707,
       "nakki" => 30317,
       "olut" => 902
