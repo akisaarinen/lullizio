@@ -20,7 +20,8 @@ class Module_Newstitle
     hosts = {
       [/.*iltalehti\.fi/, /.*/] => /(.*) \| Iltalehti\.fi$/,
       [/.*iltasanomat\.fi/, /.*/] => /(.*) - Ilta-Sanomat$/,
-      [/.*hs\.fi/, /artikkeli\/[0-9]+(\?)?/] => /(.*) - HS.fi/
+      [/.*hs\.fi/, /artikkeli\/[0-9]+(\?)?/] => /(.*) - HS.fi/,
+      [/.*mtv3\.fi/, /.*/] => /(.*) - MTV3.fi/
     }
 
     coder = HTMLEntities.new

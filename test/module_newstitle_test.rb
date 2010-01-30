@@ -34,10 +34,17 @@ class TestModule_Youtube < Test::Unit::TestCase
       @bot.expects(:send_privmsg).with("#channel", exp_result)
       @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
     end
-    
+
     should "reply to Iltasanomat.fi article" do
       uri = "http://www.iltasanomat.fi/hyvaolo/suhteet.asp?id=1822711"
       exp_result = "Koska flirtti puree naiseen? - Seksi ja suhteet - Hyv\344 olo"
+      @bot.expects(:send_privmsg).with("#channel", exp_result)
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
+    
+    should "reply to mtv3.fi article" do
+      uri = "http://www.mtv3.fi/uutiset/rikos.shtml/arkistot/rikos/2010/01/1045360"
+      exp_result = "Humalainen konstaapeli ajoi lumipenkkaan anastamallaan poliisiautolla"
       @bot.expects(:send_privmsg).with("#channel", exp_result)
       @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
     end
