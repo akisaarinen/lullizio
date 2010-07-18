@@ -19,7 +19,7 @@ class Module_Newstitle
   def parseNewsTitle(url)
     hosts = {
       [/.*iltalehti\.fi/, /.*/] => /(.*) \| Iltalehti\.fi$/,
-      [/.*iltasanomat\.fi/, /.*/] => /(.*) - Ilta-Sanomat$/,
+      [/.*iltasanomat\.fi/, /.*/] => /(.*) -[ ]+Ilta-Sanomat$/,
       [/.*hs\.fi/, /artikkeli\/[0-9]+(\?)?/] => /(.*) - HS.fi/,
       [/.*mtv3\.fi/, /.*/] => /(.*) - MTV3.fi/
     }
