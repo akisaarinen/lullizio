@@ -14,6 +14,8 @@ class Module_Newstitle
     }
   end
 
+  def botmsg(bot,target,msg) end
+
   private
 
   def parseNewsTitle(url)

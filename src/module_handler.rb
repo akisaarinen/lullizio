@@ -49,4 +49,15 @@ class ModuleHandler
       end
     }
   end
+  
+  def handle_botmsg(target, msg)
+    @modules.each { |m|
+      begin
+        m.botmsg(@bot, target, msg)
+      rescue Exception => e
+        puts "Error calling botmsg for #{m}: #{e.message}"
+        print e.backtrace.join("\n")
+      end
+    }
+  end
 end

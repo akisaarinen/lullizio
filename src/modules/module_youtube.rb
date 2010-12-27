@@ -13,6 +13,7 @@ class Module_Youtube
       end
     }
   end
+  def botmsg(bot,target,msg) end
 
   private
 

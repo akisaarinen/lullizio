@@ -6,5 +6,6 @@ class Module_Lmgtfy
       bot.send_privmsg(reply_to, "#{$1}http://lmgtfy.com/?q=#{querystr}")
     end
   end
+  def botmsg(bot,target,msg) end
 end
 

@@ -60,6 +60,8 @@ class Module_Smoothie
     end
   end
 
+  def botmsg(bot,target,msg) end
+
   private
 
   def kcalById(id, page) 

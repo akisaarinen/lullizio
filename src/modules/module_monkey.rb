@@ -26,5 +26,6 @@ class Module_Monkey
       }
     }
   end
+  def botmsg(bot,target,msg) end
 end
 

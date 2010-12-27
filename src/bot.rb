@@ -14,6 +14,7 @@ class Bot
     @config_file = config_file
     @module_handler = module_handler
     @connected = false
+    @own_msgs = []
     reload_config
   end
   
@@ -39,12 +40,20 @@ class Bot
         else
           @module_handler.handle_privmsg(msg.from, msg.target, msg.text)
         end
+      
+        @own_msgs.each { |m| 
+            @module_handler.handle_botmsg(m["target"], m["msg"])
+        }
+        @own_msgs = []
       else
     end
   end
 
   def send_raw(msg) @connector.send(msg) end
-  def send_privmsg(target, msg) @connector.privmsg(target, msg) end
+  def send_privmsg(target, msg) 
+      @connector.privmsg(target, msg) 
+      @own_msgs.push({ "target" => target, "msg" => msg })
+  end
 
   private
 
