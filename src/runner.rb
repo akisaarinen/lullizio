@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby -wKU
+
 require "bot"
 require "module_handler"
 
