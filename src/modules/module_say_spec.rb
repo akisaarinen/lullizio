@@ -35,6 +35,11 @@ describe Module_Say do
     @m.expects(:speak).with("huamn says chief executive officer tjtj chief executive officer tjtj chief executive officer").once
     @m.privmsg(@bot, "huamn", "#channel", "Tj tjtj TJ tjtj tj")
   end
+
+  it "converts ap" do
+    @m.expects(:speak).with("huamn says yrro mi paysa").once
+    @m.privmsg(@bot, "huamn", "#channel", "ap")
+  end
 end
 
 

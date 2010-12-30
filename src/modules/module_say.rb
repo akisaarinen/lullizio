@@ -30,6 +30,7 @@ private
        gsub("\304","Ä").
        gsub("\326","Ö").
        gsub(/([ ]|^)tj([ ]|$)/i,"\\1chief executive officer\\2").
+       gsub(/([ ]|^)ap([ ]|$)/i,"\\1yrro mi paysa\\2").
        gsub(/[^a-zA-ZåäöÅÄÖ ,.!?'#€%\/()\-_<>]/u,"")
   end
 end
