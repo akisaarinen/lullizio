@@ -61,8 +61,9 @@ class ModuleSayTest < Test::Unit::TestCase
     @m.privmsg(@bot, "huamn", "#channel", "ap")
   end
   
-  def test_strips_urls
+  def test_strips_urls_and_comments_them_separately
     seq = sequence('seq')
+    @m.expects(:speak).with(nil, "huamn posts an url to boobs").once.in_sequence(seq)
     @m.expects(:speak).with(nil, "huamn says").once.in_sequence(seq)
     @m.expects(:speak).with("huamn", "heh smiley").once.in_sequence(seq)
     @m.privmsg(@bot, "huamn", "#channel", "http://www.youtube.com/watch?v=kQFKtI6gn9Y heh :)")

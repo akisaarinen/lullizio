@@ -5,6 +5,7 @@ class Module_Say
   
   def privmsg(bot, from, reply_to, msg)
       converted_input = convert_input(msg)
+      comment_url(from, msg)
       speak(nil, "#{from} says") if (converted_input != "")
       speak(from, "#{converted_input}") if (converted_input != "")
   end
@@ -15,6 +16,12 @@ class Module_Say
   end
 
 private
+
+  def comment_url(from, msg)
+    if msg.include?("http://") || msg.include?("www.")
+        speak(nil, "#{from} posts an url to boobs")
+    end
+  end
   
   def speak(from, text) 
     if from == nil
