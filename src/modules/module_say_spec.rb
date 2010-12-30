@@ -76,5 +76,14 @@ class ModuleSayTest < Test::Unit::TestCase
     @m.expects(:say).with("Cellos", "huamn I'm never gonna give you up, never gonna let you down!").once.in_sequence(seq)
     @m.privmsg(@bot, "huamn", "#channel", "I like rick")
   end
+  
+  def test_pig
+    seq = sequence('seq')
+    @m.expects(:speak).with(nil, "huamn says").once.in_sequence(seq)
+    @m.expects(:speak).with("huamn", "pig").once.in_sequence(seq)
+    @m.expects(:speak).with(nil, "huamn would also like to announce the following").once.in_sequence(seq)
+    @m.expects(:speak).with("huamn", "ar ar ar niff niff niff i am a pig").once.in_sequence(seq)
+    @m.privmsg(@bot, "huamn", "#channel", "pig")
+  end
 end
 

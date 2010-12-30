@@ -8,6 +8,7 @@ class Module_Say
       comment_url(from, msg)
       speak(nil, "#{from} says") if (converted_input != "")
       speak(from, "#{converted_input}") if (converted_input != "")
+      pig(from, msg)
       rickroll(from, msg)
   end
   
@@ -21,6 +22,13 @@ private
   def comment_url(from, msg)
     if msg.include?("http://") || msg.include?("www.")
         speak(nil, "#{from} posts an url to boobs")
+    end
+  end
+
+  def pig(from, msg) 
+    if msg.include?("pig")
+        speak(nil, "#{from} would also like to announce the following")
+        speak(from, "ar ar ar niff niff niff i am a pig")
     end
   end
 
