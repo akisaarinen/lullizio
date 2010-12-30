@@ -4,7 +4,8 @@ class Module_Say
   
   def privmsg(bot, from, reply_to, msg)
       converted_input = convert_input(msg)
-      speak(from, "#{from} says #{converted_input}") if (converted_input != "")
+      speak(nil, "#{from} says") if (converted_input != "")
+      speak(from, "#{converted_input}") if (converted_input != "")
   end
   
   def botmsg(bot, target, msg)
@@ -15,11 +16,14 @@ class Module_Say
 private
   
   def speak(from, text) 
-    system "say -v \"#{get_voice(from)}\" \"#{text}\""
+    if from == nil
+      system "say -v \"Bruce\" \"#{text}\""
+    else
+      system "say -v \"#{get_voice(from)}\" \"#{text}\""
+    end
   end
 
   def get_voice(from) 
-    return "Bruce" if from == nil
     return "Alex"
   end
 
