@@ -55,6 +55,12 @@ describe Module_Say do
     @m.expects(:speak).with("huamn", "yrro mi paysa").once
     @m.privmsg(@bot, "huamn", "#channel", "ap")
   end
+  
+  it "strips urls" do
+    @m.expects(:speak).with(nil, "huamn says").once
+    @m.expects(:speak).with("huamn", "heh smiley").once
+    @m.privmsg(@bot, "huamn", "#channel", "http://www.youtube.com/watch?v=kQFKtI6gn9Y heh :)")
+  end
 end
 
 

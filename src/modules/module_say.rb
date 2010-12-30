@@ -30,7 +30,8 @@ private
   end
 
   def convert_input(s) 
-      s.gsub(/:[)DdPpEe]/, " smiley ").
+      s.gsub(/http:\/\/([^ ]|$)*/, "").
+       gsub(/:[)DdPpEe]/, "smiley").
        gsub(":(", " sad face ").
        gsub("8-D", " dick ").
        gsub("="," equals ").
@@ -42,6 +43,7 @@ private
        gsub("\326","Ö").
        gsub(/([ ]|^)tj([ ]|$)/i,"\\1chief executive officer\\2").
        gsub(/([ ]|^)ap([ ]|$)/i,"\\1yrro mi paysa\\2").
-       gsub(/[^a-zA-ZåäöÅÄÖ ,.!?'#€%\/()\-_<>]/u,"")
+       gsub(/[^a-zA-ZåäöÅÄÖ ,.!?'#€%\/()\-_<>]/u,"").
+       strip
   end
 end
