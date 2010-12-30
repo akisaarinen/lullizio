@@ -25,6 +25,11 @@ describe Module_Say do
     @m.expects(:system).with("say \"huamn says test\"").once
     @m.privmsg(@bot, "huamn", "#channel", "test")
   end
+
+  it "drops unwanted characters from input" do
+    @m.expects(:speak).with("huamn says cleaned, input with åäöÅÄÖ!").once
+    @m.privmsg(@bot, "huamn", "#channel", "\"cleaned, [input]** with åäöÅÄÖ!\"")
+  end
 end
 
 
