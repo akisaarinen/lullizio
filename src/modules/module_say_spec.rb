@@ -21,17 +21,23 @@ describe Module_Say do
     @m.botmsg(@bot, "#channel", "")
   end
   
-  it "invokes say with Kernel#system using Alex for others" do
-    @m.expects(:system).with("say -v \"Bruce\" \"huamn says\"").once
-    @m.expects(:system).with("say -v \"Alex\" \"test\"").once
+  it "invokes say with Kernel#system using Ralph for bot" do
+    @m.expects(:system).with("say -v \"Ralph\" \"I say test\"").once
+    @m.botmsg(@bot, "#channel", "test")
+  end
+  
+  it "invokes say with Kernel#system using Princess for huamn" do
+    @m.expects(:system).with("say -v \"Ralph\" \"huamn says\"").once
+    @m.expects(:system).with("say -v \"Princess\" \"test\"").once
     @m.privmsg(@bot, "huamn", "#channel", "test")
   end
   
-  it "invokes say with Kernel#system using Bruce for bot" do
-    @m.expects(:system).with("say -v \"Bruce\" \"I say test\"").once
-    @m.botmsg(@bot, "#channel", "test")
+  it "invokes say with Kernel#system using Junior for Pantti" do
+    @m.expects(:system).with("say -v \"Ralph\" \"Pantti says\"").once
+    @m.expects(:system).with("say -v \"Junior\" \"test\"").once
+    @m.privmsg(@bot, "Pantti", "#channel", "test")
   end
-
+  
   it "drops unwanted characters from input" do
     @m.expects(:speak).with(nil, "huamn says").once
     @m.expects(:speak).with("huamn", "cleaned, input with åäöÅÄÖ!").once

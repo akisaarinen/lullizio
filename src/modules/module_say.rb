@@ -1,5 +1,6 @@
 class Module_Say
   def init_module(bot) 
+    @user_voices = ["Alex", "Bruce", "Fred", "Junior", "Agnes", "Kathy", "Princess", "Vicki", "Victoria"]
   end
   
   def privmsg(bot, from, reply_to, msg)
@@ -17,14 +18,15 @@ private
   
   def speak(from, text) 
     if from == nil
-      system "say -v \"Bruce\" \"#{text}\""
+      system "say -v \"Ralph\" \"#{text}\""
     else
       system "say -v \"#{get_voice(from)}\" \"#{text}\""
     end
   end
 
   def get_voice(from) 
-    return "Alex"
+    sum = from.unpack("C*").inject { |s,i| s+i }
+    return @user_voices[sum % @user_voices.length]
   end
 
   def convert_input(s) 
