@@ -12,12 +12,12 @@ describe Module_Say do
   end
 
   it "does nothing with empty privmsg" do
-    @m.expects(:system).never
+    @m.expects(:speak).never
     @m.privmsg(@bot, "huamn", "#channel", "")
   end
   
   it "does nothing with empty botmsg" do
-    @m.expects(:system).never
+    @m.expects(:speak).never
     @m.botmsg(@bot, "#channel", "")
   end
 end
