@@ -21,23 +21,28 @@ describe Module_Say do
     @m.botmsg(@bot, "#channel", "")
   end
   
-  it "invokes say with Kernel#system" do
-    @m.expects(:system).with("say \"huamn says test\"").once
+  it "invokes say with Kernel#system using Alex for others" do
+    @m.expects(:system).with("say -v \"Alex\" \"huamn says test\"").once
     @m.privmsg(@bot, "huamn", "#channel", "test")
+  end
+  
+  it "invokes say with Kernel#system using Bruce for bot" do
+    @m.expects(:system).with("say -v \"Bruce\" \"I say test\"").once
+    @m.botmsg(@bot, "#channel", "test")
   end
 
   it "drops unwanted characters from input" do
-    @m.expects(:speak).with("huamn says cleaned, input with åäöÅÄÖ!").once
+    @m.expects(:speak).with("huamn", "huamn says cleaned, input with åäöÅÄÖ!").once
     @m.privmsg(@bot, "huamn", "#channel", "\"cleaned, [input]** with åäöÅÄÖ!\"")
   end
 
   it "converts tj" do
-    @m.expects(:speak).with("huamn says chief executive officer tjtj chief executive officer tjtj chief executive officer").once
+    @m.expects(:speak).with("huamn", "huamn says chief executive officer tjtj chief executive officer tjtj chief executive officer").once
     @m.privmsg(@bot, "huamn", "#channel", "Tj tjtj TJ tjtj tj")
   end
 
   it "converts ap" do
-    @m.expects(:speak).with("huamn says yrro mi paysa").once
+    @m.expects(:speak).with("huamn", "huamn says yrro mi paysa").once
     @m.privmsg(@bot, "huamn", "#channel", "ap")
   end
 end
