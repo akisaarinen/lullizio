@@ -51,7 +51,7 @@ private
        gsub("\326","Ö").
        gsub(/([ ]|^)tj([ ]|$)/i,"\\1chief executive officer\\2").
        gsub(/([ ]|^)ap([ ]|$)/i,"\\1yrro mi paysa\\2").
-       gsub(/[^a-zA-ZåäöÅÄÖ ,.!?'#€%\/()\-_<>]/u,"").
+       gsub(/[^a-zA-Z0-9åäöÅÄÖ ,.!?'#€%\/()\-_<>]/u,"").
        strip
   end
 end

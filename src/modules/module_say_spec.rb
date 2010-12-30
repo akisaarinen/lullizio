@@ -43,8 +43,8 @@ class ModuleSayTest < Test::Unit::TestCase
   def test_drops_unwanted_characters_from_input
     seq = sequence('seq')
     @m.expects(:speak).with(nil, "huamn says").once.in_sequence(seq)
-    @m.expects(:speak).with("huamn", "cleaned, input with åäöÅÄÖ!").once.in_sequence(seq)
-    @m.privmsg(@bot, "huamn", "#channel", "\"cleaned, [input]** with åäöÅÄÖ!\"")
+    @m.expects(:speak).with("huamn", "cleaned, input with åäöÅÄÖ 1 2 3!").once.in_sequence(seq)
+    @m.privmsg(@bot, "huamn", "#channel", "\"cleaned, [input]** with åäöÅÄÖ 1 2 3!\"")
   end
 
   def test_converts_tj
