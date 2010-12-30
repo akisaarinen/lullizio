@@ -30,6 +30,11 @@ describe Module_Say do
     @m.expects(:speak).with("huamn says cleaned, input with åäöÅÄÖ!").once
     @m.privmsg(@bot, "huamn", "#channel", "\"cleaned, [input]** with åäöÅÄÖ!\"")
   end
+
+  it "converts tj" do
+    @m.expects(:speak).with("huamn says chief executive officer tjtj chief executive officer tjtj chief executive officer").once
+    @m.privmsg(@bot, "huamn", "#channel", "Tj tjtj TJ tjtj tj")
+  end
 end
 
 
