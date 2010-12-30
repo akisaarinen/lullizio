@@ -27,38 +27,44 @@ class ModuleSayTest < Test::Unit::TestCase
   end
   
   def test_invokes_say_with_Kernel_system_using_Princess_for_huamn
+    seq = sequence('seq')
     @m.expects(:system).with("say -v \"Ralph\" \"huamn says\"").once
     @m.expects(:system).with("say -v \"Princess\" \"test\"").once
     @m.privmsg(@bot, "huamn", "#channel", "test")
   end
   
   def test_invokes_say_with_Kernel_system_using_Junior_for_Pantti
-    @m.expects(:system).with("say -v \"Ralph\" \"Pantti says\"").once
-    @m.expects(:system).with("say -v \"Junior\" \"test\"").once
+    seq = sequence('seq')
+    @m.expects(:system).with("say -v \"Ralph\" \"Pantti says\"").once.in_sequence(seq)
+    @m.expects(:system).with("say -v \"Junior\" \"test\"").once.in_sequence(seq)
     @m.privmsg(@bot, "Pantti", "#channel", "test")
   end
   
   def test_drops_unwanted_characters_from_input
-    @m.expects(:speak).with(nil, "huamn says").once
-    @m.expects(:speak).with("huamn", "cleaned, input with åäöÅÄÖ!").once
+    seq = sequence('seq')
+    @m.expects(:speak).with(nil, "huamn says").once.in_sequence(seq)
+    @m.expects(:speak).with("huamn", "cleaned, input with åäöÅÄÖ!").once.in_sequence(seq)
     @m.privmsg(@bot, "huamn", "#channel", "\"cleaned, [input]** with åäöÅÄÖ!\"")
   end
 
   def test_converts_tj
-    @m.expects(:speak).with(nil, "huamn says").once
-    @m.expects(:speak).with("huamn", "chief executive officer tjtj chief executive officer tjtj chief executive officer").once
+    seq = sequence('seq')
+    @m.expects(:speak).with(nil, "huamn says").once.in_sequence(seq)
+    @m.expects(:speak).with("huamn", "chief executive officer tjtj chief executive officer tjtj chief executive officer").once.in_sequence(seq)
     @m.privmsg(@bot, "huamn", "#channel", "Tj tjtj TJ tjtj tj")
   end
 
   def test_converts_ap
-    @m.expects(:speak).with(nil, "huamn says").once
-    @m.expects(:speak).with("huamn", "yrro mi paysa").once
+    seq = sequence('seq')
+    @m.expects(:speak).with(nil, "huamn says").once.in_sequence(seq)
+    @m.expects(:speak).with("huamn", "yrro mi paysa").once.in_sequence(seq)
     @m.privmsg(@bot, "huamn", "#channel", "ap")
   end
   
   def test_strips_urls
-    @m.expects(:speak).with(nil, "huamn says").once
-    @m.expects(:speak).with("huamn", "heh smiley").once
+    seq = sequence('seq')
+    @m.expects(:speak).with(nil, "huamn says").once.in_sequence(seq)
+    @m.expects(:speak).with("huamn", "heh smiley").once.in_sequence(seq)
     @m.privmsg(@bot, "huamn", "#channel", "http://www.youtube.com/watch?v=kQFKtI6gn9Y heh :)")
   end
 end
