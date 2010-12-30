@@ -68,5 +68,13 @@ class ModuleSayTest < Test::Unit::TestCase
     @m.expects(:speak).with("huamn", "heh smiley").once.in_sequence(seq)
     @m.privmsg(@bot, "huamn", "#channel", "http://www.youtube.com/watch?v=kQFKtI6gn9Y heh :)")
   end
+  
+  def test_rickrolls
+    seq = sequence('seq')
+    @m.expects(:speak).with(nil, "huamn says").once.in_sequence(seq)
+    @m.expects(:speak).with("huamn", "I like rick").once.in_sequence(seq)
+    @m.expects(:say).with("Cellos", "huamn I'm never gonna give you up, never gonna let you down!").once.in_sequence(seq)
+    @m.privmsg(@bot, "huamn", "#channel", "I like rick")
+  end
 end
 

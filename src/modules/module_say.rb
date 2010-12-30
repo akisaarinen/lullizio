@@ -8,6 +8,7 @@ class Module_Say
       comment_url(from, msg)
       speak(nil, "#{from} says") if (converted_input != "")
       speak(from, "#{converted_input}") if (converted_input != "")
+      rickroll(from, msg)
   end
   
   def botmsg(bot, target, msg)
@@ -22,13 +23,23 @@ private
         speak(nil, "#{from} posts an url to boobs")
     end
   end
+
+  def rickroll(from, msg) 
+    if msg.include?("rick") || msg.include?("astley")
+        say("Cellos", "#{from} I'm never gonna give you up, never gonna let you down!")
+    end
+  end
   
   def speak(from, text) 
     if from == nil
-      system "say -v \"Ralph\" \"#{text}\""
+      say("Ralph", text)
     else
-      system "say -v \"#{get_voice(from)}\" \"#{text}\""
+      say(get_voice(from), text)
     end
+  end
+  
+  def say(voice, text) 
+    system "say -v \"#{voice}\" \"#{text}\""
   end
 
   def get_voice(from) 
