@@ -3,15 +3,21 @@ class Module_Say
   end
   
   def privmsg(bot, from, reply_to, msg)
-      system "say \"#{from} says #{convert_input(msg)}\""
+      converted_input = convert_input(msg)
+      speak "#{from} says #{converted_input}" if (converted_input != "")
   end
   
   def botmsg(bot, target, msg)
-      system "say \"I say #{convert_input(msg)}\""
+      converted_input = convert_input(msg)
+      speak "I say #{converted_input}" if (converted_input != "")
   end
 
 private
- 
+  
+  def speak(text) 
+    system "say \"#{text}\""
+  end
+
   def convert_input(s) 
       p s.scan(/./m)
       s.gsub(/:[)DdPpEe]/, " smiley ").

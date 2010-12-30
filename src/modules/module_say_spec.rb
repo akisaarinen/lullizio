@@ -3,7 +3,7 @@ require 'mocha'
 require 'rspec'
 require 'module_say'
 
-describe Module_Say, "#privmsg" do
+describe Module_Say do
 
   before(:each) do
     @bot = mock('bot')
@@ -11,9 +11,14 @@ describe Module_Say, "#privmsg" do
     @m.init_module(@bot)
   end
 
-  it "always invokes system call" do
-    @m.expects(:system).once
+  it "does nothing with empty privmsg" do
+    @m.expects(:system).never
     @m.privmsg(@bot, "huamn", "#channel", "")
+  end
+  
+  it "does nothing with empty botmsg" do
+    @m.expects(:system).never
+    @m.botmsg(@bot, "#channel", "")
   end
 end
 
