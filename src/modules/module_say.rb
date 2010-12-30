@@ -19,7 +19,6 @@ private
   end
 
   def convert_input(s) 
-      p s.scan(/./m)
       s.gsub(/:[)DdPpEe]/, " smiley ").
        gsub(":(", " sad face ").
        gsub("8-D", " dick ").
