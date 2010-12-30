@@ -34,6 +34,7 @@ private
        gsub(/:[)DdPpEe]/, "smiley").
        gsub(":(", " sad face ").
        gsub("8-D", " dick ").
+       gsub("<3", "love").
        gsub("="," equals ").
        gsub("\345","å").
        gsub("\344","ä").
