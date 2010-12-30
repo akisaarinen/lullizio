@@ -7,7 +7,7 @@ class ModuleHandler
     @excluded_modules = excluded_modules
     @modules = []
     Dir.new(@modules_dir).entries.
-      select { |m| m =~ /^module_.*\.rb$/ }.
+      select { |m| m =~ /^module_.*\.rb$/ && !m.include?("_spec") }.
       map { |m| 
         m =~ /^module_(.*)\.rb$/
         $1
