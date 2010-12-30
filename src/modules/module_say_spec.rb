@@ -20,6 +20,11 @@ describe Module_Say do
     @m.expects(:speak).never
     @m.botmsg(@bot, "#channel", "")
   end
+  
+  it "invokes say with Kernel#system" do
+    @m.expects(:system).with("say \"huamn says test\"").once
+    @m.privmsg(@bot, "huamn", "#channel", "test")
+  end
 end
 
 
