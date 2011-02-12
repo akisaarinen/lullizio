@@ -34,6 +34,26 @@ class TestModule_Youtube < Test::Unit::TestCase
       @bot.expects(:send_privmsg).with("#channel", exp_result)
       @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
     end
+    
+    should "not reply to a jpg image from Iltalehti.fi" do
+      uri = "http://static.iltalehti.fi/viihde/mikasalo_vaaka1102MN_503_vi.jpg"
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
+   
+    should "not reply to a jpeg image from Iltalehti.fi" do
+      uri = "http://static.iltalehti.fi/viihde/mikasalo_vaaka1102MN_503_vi.jpeg"
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
+    
+    should "not reply to a gif image from Iltalehti.fi" do
+      uri = "http://static.iltalehti.fi/viihde/mikasalo_vaaka1102MN_503_vi.gif"
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
+
+    should "not reply to a png image from Iltalehti.fi" do
+      uri = "http://static.iltalehti.fi/viihde/mikasalo_vaaka1102MN_503_vi.png"
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
 
     should "reply to Iltasanomat.fi article" do
       uri = "http://www.iltasanomat.fi/hyvaolo/suhteet.asp?id=1822711"

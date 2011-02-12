@@ -25,6 +25,12 @@ class Module_Newstitle
       [/.*hs\.fi/, /artikkeli\/[0-9]+(\?)?/] => /(.*) - HS.fi/,
       [/.*mtv3\.fi/, /.*/] => /(.*) - MTV3.fi/
     }
+    image_paths = [
+      /.*\.jpg/,
+      /.*\.jpeg/,
+      /.*\.gif/,
+      /.*\.png/
+    ]
 
     coder = HTMLEntities.new
 
@@ -32,6 +38,9 @@ class Module_Newstitle
       host = params[0]
       path = params[1]
       if URI.parse(url).host =~ host && URI.parse(url).path =~ path
+        image_paths.each { |image_path|
+          return "" if URI.parse(url).path =~ image_path
+        }
         reply = fetch_uri(url)
         return "HTML error ##{reply.code}, sry :(" if (reply.code != "200")
         return $1 if reply.body =~ /<title>(.*)<\/title>/ && coder.decode($1) =~ title_expr
