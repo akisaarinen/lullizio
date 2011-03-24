@@ -53,9 +53,10 @@ class Module_Smoothie
         end
 
       }
-      bot.send_privmsg(reply_to, "Laskennallinen energiasisältö: #{kcalsTotal} kcal")
       if ignored_format != [] || unknown_products != []
         bot.send_privmsg(reply_to, "Vaarassa formaatissa: [#{ignored_format.join(",")}], Tuntemattomat aineet: [#{unknown_products.join(",")}]")
+      else
+        bot.send_privmsg(reply_to, "Laskennallinen energiasisältö: #{kcalsTotal} kcal")
       end
     end
   end
