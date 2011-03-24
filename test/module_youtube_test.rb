@@ -11,7 +11,7 @@ class TestModule_Youtube < Test::Unit::TestCase
 
     should "detect and fetch raw youtube URL" do
       uri = "http://www.youtube.com/watch?v=bXjbMIZzAgs"
-      exp_result =/^Christmas Light Hero \(rating: [0-9.]+ \([0-9]+\), views: [0-9]+\)$/
+      exp_result =/^Christmas Light Hero.* \(rating: [0-9.]+ \([0-9]+\), views: [0-9]+\)$/
       @bot.expects(:send_privmsg).with("#channel", regexp_matches(exp_result))
       @module.privmsg(@bot, "someone", "#channel", uri)
     end
