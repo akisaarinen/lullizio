@@ -66,7 +66,7 @@ class Module_Smoothie
   private
 
   def kcalById(id, page) 
-    if page.body =~ /energia laskennallinen<\/a><\/td><td align="right">([0-9]+)&nbsp;\(([0-9]+)\)/m
+    if page.body =~ /energia[,]? laskennallinen<\/a><\/td><td align="right">([0-9]+)&nbsp;\(([0-9]+)\)/m
       return $2.to_f 
     else
       return nil
