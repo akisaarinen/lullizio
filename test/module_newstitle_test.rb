@@ -62,6 +62,13 @@ class TestModule_Youtube < Test::Unit::TestCase
       @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
     end
     
+    should "reply to talouselama.fi article" do
+      uri = "http://www.talouselama.fi/uutiset/article598724.ece"
+      exp_result = "Suomen suurimmasta amk:sta tuli pelon pesä"
+      @bot.expects(:send_privmsg).with("#channel", exp_result)
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
+
     should "reply to mtv3.fi article" do
       uri = "http://www.mtv3.fi/uutiset/rikos.shtml/arkistot/rikos/2010/01/1045360"
       exp_result = "Humalainen konstaapeli ajoi lumipenkkaan anastamallaan poliisiautolla"

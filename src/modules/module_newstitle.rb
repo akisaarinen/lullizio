@@ -23,7 +23,8 @@ class Module_Newstitle
       [/.*iltalehti\.fi/, /.*/] => /(.*) \| Iltalehti\.fi$/,
       [/.*iltasanomat\.fi/, /.*/] => /(.*) -[ ]+Ilta-Sanomat$/,
       [/.*hs\.fi/, /artikkeli\/[0-9]+(\?)?/] => /(.*) - HS.fi/,
-      [/.*mtv3\.fi/, /.*/] => /(.*) - MTV3.fi/
+      [/.*mtv3\.fi/, /.*/] => /(.*) - MTV3.fi/,
+      [/.*talouselama\.fi/, /uutiset\/.*/] => /(.*) -[\W]+Talouselämä/
     }
     image_paths = [
       /.*\.jpg/,
