@@ -22,9 +22,10 @@ class Module_Newstitle
     hosts = {
       [/.*iltalehti\.fi/, /.*/] => /(.*) \| Iltalehti\.fi$/,
       [/.*iltasanomat\.fi/, /.*/] => /(.*) -[ ]+Ilta-Sanomat$/,
-      [/.*hs\.fi/, /artikkeli\/[0-9]+(\?)?/] => /(.*) - HS.fi/,
+      [/.*hs\.fi/, /artikkeli\/[0-9]+(\?)?/] => /(.*) - HS\.fi/,
       [/.*mtv3\.fi/, /.*/] => /(.*) - MTV3.fi/,
-      [/.*talouselama\.fi/, /uutiset\/.*/] => /(.*) -[\W]+Talouselämä/
+      [/.*talouselama\.fi/, /uutiset\/.*/] => /(.*) -[\W]+Talouselämä/,
+      [/.*yle\.fi/, /.*\.html/] => /(.*) \| yle\.fi/
     }
     image_paths = [
       /.*\.jpg/,
@@ -44,7 +45,7 @@ class Module_Newstitle
         }
         reply = fetch_uri(url)
         return "HTML error ##{reply.code}, sry :(" if (reply.code != "200")
-        return $1 if reply.body =~ /<title>(.*)<\/title>/ && coder.decode($1) =~ title_expr
+        return $1.strip if reply.body =~ /<title>(.*)<\/title>/m && coder.decode($1) =~ title_expr
         return "Unable to find title"
       end
     }
