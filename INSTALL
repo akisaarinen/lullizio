@@ -1,3 +1,5 @@
+gem install htmlentities shoulda mocha
+
 cp example_config.yml myconfig.yml
 vim myconfig.yml
 ./run_bot.sh myconfig.yml
