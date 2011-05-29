@@ -20,7 +20,7 @@ class Module_Youtube
   def parseYoutube(url)
     if URI.parse(url).host =~ /.*youtube\.com/
       video = URI.parse(url).query.match(/v=([^ &]*)/)[0][2,15]
-      api = "http://gdata.youtube.com/feeds/api/videos/" + video
+      api = "http://gdata.youtube.com/feeds/api/videos/" + video + "?v=2"
       print api + "\n"
 
       reply = fetch_uri(api)
@@ -30,13 +30,27 @@ class Module_Youtube
       rating = "?"
       views = "?"
 
-      title = $1 if reply.body =~ /.*<title type='text'>(.*)<\/title>.*/
-      rating = $1 if reply.body =~ /.*<gd:rating average='([0-9.]*)'.*/
-      ratingcount = $1 if reply.body =~ /.*numRaters='([0-9]*)'.*/
-      views = $1 if reply.body =~ /.*<yt:statistics favoriteCount='[0-9]*' viewCount='([0-9]*)'\/>.*/
-      average = ((rating.to_f * 100).round).to_f / 100
+      title = $1 if reply.body =~ /.*<title[^>]*>(.*)<\/title>.*/
 
-      "#{title} (rating: #{average} (#{ratingcount}), views: #{views})"
+
+      # Prefer likes/dislikes if they exist
+      if reply.body =~ /<yt:rating numDislikes='([0-9]+)' numLikes='([0-9]+)'\/>/
+        numDislikes = $1.to_i
+        numLikes = $2.to_i
+        ratingStr = "#{numLikes} likes, #{numDislikes} dislikes"
+      # Try also numeric rating
+      elsif reply.body =~ /.*<gd:rating average='([0-9.]*)'.*/
+        avgRating = $1 
+        numRaters = $1 if reply.body =~ /.*numRaters='([0-9]*)'.*/
+        valueInTwoDigits = ((rating.to_f * 100).round).to_f / 100
+        ratingStr = "#{valueInTwoDigits} (#{numRaters})"
+      # Default to unknown
+      else
+        ratingStr = "unknown"
+      end
+
+      views = $1 if reply.body =~ /.*<yt:statistics favoriteCount='[0-9]*' viewCount='([0-9]*)'\/>.*/
+      "#{title} (rating: #{ratingStr}, views: #{views})"
     else
       ""
     end
