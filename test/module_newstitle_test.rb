@@ -30,7 +30,7 @@ class TestModule_Youtube < Test::Unit::TestCase
     
     should "reply to Iltalehti.fi article" do
       uri = "http://www.iltalehti.fi/uutiset/2009121910813607_uu.shtml"
-      exp_result = "Rekkajono Vaalimaalla pitenee | Uutiset"
+      exp_result = "Rekkajono Vaalimaalla pitenee | Kotimaan uutiset"
       @bot.expects(:send_privmsg).with("#channel", exp_result)
       @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
     end
