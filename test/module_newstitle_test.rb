@@ -82,5 +82,19 @@ class TestModule_Youtube < Test::Unit::TestCase
       @bot.expects(:send_privmsg).with("#channel", exp_result)
       @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
     end
+    
+    should "reply to kauppalehti.fi talous article" do
+      uri = "http://www.kauppalehti.fi/5/i/talous/uutiset/etusivu/uutinen.jsp?oid=20110782099"
+      exp_result = "Kiinalaiset hamuavat luksusta - veronalennus vauhdittaa myynti\344"
+      @bot.expects(:send_privmsg).with("#channel", exp_result)
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
+    
+    should "reply to kauppalehti.fi pörssi article" do
+      uri = "http://www.kauppalehti.fi/5/i/porssi/omaraha/uutiset.jsp?oid=20110782053"
+      exp_result = "Janne Saarikko rakentamaan uutta finanssitaloa"
+      @bot.expects(:send_privmsg).with("#channel", exp_result)
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
   end
 end

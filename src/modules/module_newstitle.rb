@@ -25,6 +25,7 @@ class Module_Newstitle
       [/.*hs\.fi/, /artikkeli\/[0-9]+(\?)?/] => /(.*) - HS\.fi/,
       [/.*mtv3\.fi/, /.*/] => /(.*) - MTV3.fi/,
       [/.*talouselama\.fi/, /uutiset\/.*/] => /(.*) -[\W]+Talouselämä/,
+      [/.*kauppalehti\.fi/, /i\/.*\/uuti(nen|set).jsp?.*/] => /(.*) \| Kauppalehti.fi/,
       [/.*yle\.fi/, /.*\.html/] => /(.*) \| yle\.fi/
     }
     image_paths = [
