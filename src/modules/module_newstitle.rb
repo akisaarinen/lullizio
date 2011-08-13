@@ -3,23 +3,7 @@ require 'htmlentities'
 Kernel.load("fetch_uri.rb")
 
 class Module_Newstitle
-  def init_module(bot) end
-  
-  def privmsg(bot, from, reply_to, msg)
-    msg.split(" ").each { |word|
-      if word =~ /^http:\/\//
-        news_title = parseNewsTitle(word)
-        bot.send_privmsg(reply_to, news_title) if news_title != ""
-      end
-    }
-  end
-
-  def botmsg(bot,target,msg) end
-
-  private
-
-  def parseNewsTitle(url)
-    hosts = {
+  TITLE_REGEXS = {
       [/.*iltalehti\.fi/, /.*/] => /(.*) \| Iltalehti\.fi$/,
       [/.*iltasanomat\.fi/, /.*/] => /(.*) -[ ]+Ilta-Sanomat$/,
       [/.*hs\.fi/, /artikkeli\/[0-9]+(\?)?/] => /(.*) - HS\.fi/,
@@ -28,30 +12,55 @@ class Module_Newstitle
       [/.*kauppalehti\.fi/, /i\/.*\/uuti(nen|set).jsp?.*/] => /(.*) \| Kauppalehti.fi/,
       [/.*yle\.fi/, /.*\.html/] => /(.*) \| yle\.fi/
     }
-    image_paths = [
-      /.*\.jpg/,
-      /.*\.jpeg/,
-      /.*\.gif/,
-      /.*\.png/
-    ]
+  IGNORED_IMAGE_PATHS = [
+    /.*\.jpg/,
+    /.*\.jpeg/,
+    /.*\.gif/,
+    /.*\.png/
+  ]
 
-    coder = HTMLEntities.new
-
-    hosts.each { |params, title_expr|
-      host = params[0]
-      path = params[1]
-      if URI.parse(url).host =~ host && URI.parse(url).path =~ path
-        image_paths.each { |image_path|
-          return "" if URI.parse(url).path =~ image_path
-        }
-        reply = fetch_uri(url)
-        return "HTML error ##{reply.code}, sry :(" if (reply.code != "200")
-        return $1.strip if reply.body =~ /<title>(.*)<\/title>/m && coder.decode($1) =~ title_expr
-        return "Unable to find title"
+  def init_module(bot) end
+  
+  def privmsg(bot, from, reply_to, msg)
+    msg.split(" ").each { |word|
+      if word =~ /^http:\/\//
+        fetch_newstitles(word).each do |title|
+          bot.send_privmsg(reply_to, title)
+        end
       end
     }
-    ""
+  end
 
+  def botmsg(bot,target,msg) end
+
+  private
+
+  def fetch_newstitles(url)
+    return [] if is_ignored_image_path(url)
+
+    coder = HTMLEntities.new
+    TITLE_REGEXS.map { |(host, path), title_expr|
+      if URI.parse(url).host =~ host && URI.parse(url).path =~ path
+        begin
+          reply = fetch_uri(url)
+          if reply.code != "200"
+            "HTML error ##{reply.code}, sry :("
+          elsif reply.body =~ /<title>(.*)<\/title>/m && coder.decode($1) =~ title_expr
+            $1.strip
+          else
+            "Unable to find title"
+          end
+        rescue => e
+          "Error #{e.message}"
+        end
+      end
+    }.select {|title| title != nil }
+  end
+
+  def is_ignored_image_path(url)
+    IGNORED_IMAGE_PATHS.map { |image_path|
+      (URI.parse(url).path =~ image_path) != nil
+    }.include?(true)
   end
 end
 

@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/test_helper.rb'
 require 'modules/module_newstitle.rb'
 
-class TestModule_Youtube < Test::Unit::TestCase
+class TestModule_Newstitle < Test::Unit::TestCase
   context "Newstitle module" do
     setup do
       @bot = mock()
