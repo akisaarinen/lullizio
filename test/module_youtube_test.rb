@@ -9,14 +9,21 @@ class TestModule_Youtube < Test::Unit::TestCase
       @module.init_module(@bot)
     end
 
-    should "detect and fetch raw youtube URL" do
+    should "detect and fetch raw youtube URL using youtube.com" do
       uri = "http://www.youtube.com/watch?v=bXjbMIZzAgs"
       exp_result =/^Christmas Light Hero.* \(rating: [0-9]+ likes, [0-9]+ dislikes, views: [0-9]+\)$/
       @bot.expects(:send_privmsg).with("#channel", regexp_matches(exp_result))
       @module.privmsg(@bot, "someone", "#channel", uri)
     end
 
-    should "detect and fetch youtube URL from text with feature=related" do
+    should "detect and fetch raw youtube URL using youtu.be" do
+      uri = "http://youtu.be/bXjbMIZzAgs"
+      exp_result =/^Christmas Light Hero.* \(rating: [0-9]+ likes, [0-9]+ dislikes, views: [0-9]+\)$/
+      @bot.expects(:send_privmsg).with("#channel", regexp_matches(exp_result))
+      @module.privmsg(@bot, "someone", "#channel", uri)
+    end
+
+    should "detect and fetch youtube URL from text with feature=related using youtube.com" do
       uri = "http://www.youtube.com/watch?v=7IydwcuGvAI&feature=related"
       exp_result =/^Snoopy vs the Red Baron \(rating: [0-9]+ likes, [0-9]+ dislikes, views: [0-9]+\)$/
       @bot.expects(:send_privmsg).with("#channel", regexp_matches(exp_result))
