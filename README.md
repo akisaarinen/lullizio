@@ -1,18 +1,20 @@
-A really simple IRC bot for my own amusement purposes.
+A simple IRC bot written in Ruby, mostly for my own amusement purposes.
 
 Features
 --------
-* Dynamic reloading of modules on-the-fly so the bot does not need to be
-  restarted. Ruby makes this rather easy.
-* A few stupid modules to support my childish IRC activities:
+* Dynamic reloading of modules on-the-fly so the bot can stay online while being
+  updated. Ruby makes this rather easy.
+* A few useful modules to improve the IRC experience
   * YouTube: fetch youtube urls and tell the title, rating etc. to channel
-  * Twitter: show contents of a twitter link
-  * Newstitle: fetch and shout title to channel for popular Finnish news sites 
+  * Twitter: show contents of a twitter status link
+  * Newstitle: fetch and shout title to channel for popular Finnish news sites
     when somene posts an url to a piece of news
-  * Monkey: reply stupidly with regexps, e.g. when someone says anything
-    containing "banana", the bot may reply something stupid like 
-    "mm, yummy banana!".
-  * LMGTFY: support being a smartass by giving a lmgtfy link
+* A few less useful modules, just for the lulz:
+  * Monkey: define your own monkey-like replies with regexps. E.g. when someone says anything
+    containing "banana", the bot may reply "mm, yummy banana!". Let your imagination
+    be the limit of what the MonkeyModule (TM) can do.
+  * LMGTFY: someone asks a stupid question? No problem, you can be a smartass and
+    support this by easily linking the topic in [lmgtfy](http://lmgtfy.com/?q=lmgtfy).
 
 References
 ----------
