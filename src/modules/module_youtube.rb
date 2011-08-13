@@ -52,7 +52,8 @@ class Module_Youtube
     title = get_title(content)
     rating_str = get_preferred_rating_string(content)
     views = get_views(content)
-    "#{title} (rating: #{rating_str}, views: #{views})"
+    duration = get_duration(content)
+    "#{title} [#{duration}] (rating: #{rating_str}, views: #{views})"
   end
 
   def get_preferred_rating_string(content)
@@ -86,6 +87,14 @@ class Module_Youtube
 
   def get_views(content)
     content =~ /.*<yt:statistics favoriteCount='[0-9]*' viewCount='([0-9]*)'\/>.*/ ? $1 : "?"
+  end
+
+  def get_duration(content)
+    duration_seconds = (content =~ /.*<yt:duration seconds='([0-9]*)'\/>.*/) ? $1.to_i : 0
+    hr = duration_seconds / 3600
+    mn = (duration_seconds - hr*3600) / 60
+    sc = (duration_seconds - hr*3600 - mn*60)
+    hr > 0 ? "%d:%02d:%02d" % [hr,mn,sc] : "%d:%02d" % [mn,sc]
   end
 end
 
