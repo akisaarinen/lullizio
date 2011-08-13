@@ -4,7 +4,9 @@ require 'net/http'
 Kernel.load('fetch_uri.rb')
 
 class Module_Youtube
-  def init_module(bot) end
+  def init_module(bot)
+  end
+
   def privmsg(bot, from, reply_to, msg)
     msg.split(" ").each { |word|
       if youtube_id = get_youtube_id(word)
@@ -13,7 +15,9 @@ class Module_Youtube
       end
     }
   end
-  def botmsg(bot,target,msg) end
+
+  def botmsg(bot, target, msg)
+  end
 
   private
 
@@ -21,7 +25,7 @@ class Module_Youtube
     if word =~ /youtube.com\/watch?/
       uri = URI.parse(word)
       if uri.host =~ /.*youtube\.com/
-        uri.query.match(/v=([^ &]*)/)[0][2,15]
+        uri.query.match(/v=([^ &]*)/)[0][2, 15]
       else
         nil
       end
@@ -65,6 +69,7 @@ class Module_Youtube
       nil
     end
   end
+
   def get_numeric_rating(content)
     if content =~ /.*<gd:rating average='([0-9.]*)'.*/
       num_raters = $1 if reply.body =~ /.*numRaters='([0-9]*)'.*/
@@ -78,6 +83,7 @@ class Module_Youtube
   def get_title(content)
     content =~ /.*<title[^>]*>(.*)<\/title>.*/ ? $1 : "?"
   end
+
   def get_views(content)
     content =~ /.*<yt:statistics favoriteCount='[0-9]*' viewCount='([0-9]*)'\/>.*/ ? $1 : "?"
   end
