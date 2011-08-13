@@ -2,7 +2,6 @@ require 'uri'
 require 'net/http'
 
 def fetch_uri(uri_str, limit = 10)
-  # You should choose better exception.
   raise ArgumentError, 'HTTP redirect too deep' if limit == 0
 
   response = Net::HTTP.get_response(URI.parse(uri_str))
@@ -15,7 +14,6 @@ def fetch_uri(uri_str, limit = 10)
 end
 
 def post_uri(uri_str, args = {}, limit = 10)
-  # You should choose better exception.
   raise ArgumentError, 'HTTP redirect too deep' if limit == 0
 
   response = Net::HTTP.post_form(URI.parse(uri_str), args)
