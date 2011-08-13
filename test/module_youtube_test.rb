@@ -9,6 +9,15 @@ class TestModule_Youtube < Test::Unit::TestCase
       @module.init_module(@bot)
     end
 
+    should "do nothing with non-video or broken URLs" do
+      @module.privmsg(@bot, "someone", "#channel", "http://www.youtube.com/")
+      @module.privmsg(@bot, "someone", "#channel", "http://youtube.com/about")
+      @module.privmsg(@bot, "someone", "#channel", "http://youtu.be/invalid")
+      @module.privmsg(@bot, "someone", "#channel", "youtu.be/invalid")
+      @module.privmsg(@bot, "someone", "#channel", "http://www.youtube.com/watch?v=invalid")
+      @module.privmsg(@bot, "someone", "#channel", "http://invalid.youtube.com/watch?v=foo")
+    end
+
     should "detect and fetch raw youtube URL using youtube.com" do
       uri = "http://www.youtube.com/watch?v=bXjbMIZzAgs"
       exp_result =/^Christmas Light Hero.* \(rating: [0-9]+ likes, [0-9]+ dislikes, views: [0-9]+\)$/

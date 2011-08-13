@@ -9,7 +9,7 @@ class Module_Youtube
     msg.split(" ").each { |word|
       if youtube_id = get_youtube_id(word)
         youtube_title = get_formatted_title(youtube_id)
-        bot.send_privmsg(reply_to, youtube_title)
+        bot.send_privmsg(reply_to, youtube_title) if youtube_title
       end
     }
   end
@@ -35,8 +35,13 @@ class Module_Youtube
   def get_formatted_title(video_id)
     api_url = "http://gdata.youtube.com/feeds/api/videos/" + video_id + "?v=2"
     print "Fetching " + api_url + "\n"
-    reply = fetch_uri(api_url)
-    reply.code == "200" ? format_title(reply.body) : ""
+    begin
+      reply = fetch_uri(api_url)
+      reply.code == "200" ? format_title(reply.body) : nil
+    rescue => e
+      p "Error fetching: #{e.to_s}"
+      nil
+    end
   end
 
   def format_title(content)
