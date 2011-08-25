@@ -7,7 +7,7 @@ class Module_Nhl
   
   def privmsg(bot, from, reply_to, msg)
     msg.split(" ").each { |word|
-      if word =~ /^nhl|^änäri/
+      if word =~ /^nhl|^[\344]n[\344]ri|^änäri/
         bot.send_privmsg(reply_to, "Enää #{time_until_nhl} päivää!!1")
       end
     }
