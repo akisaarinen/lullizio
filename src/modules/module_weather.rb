@@ -19,30 +19,19 @@ class Module_Weather
   private
 
   def find_weather
-    uri = "http://m.foreca.fi/index.php?l=100660158"
+    uri = "http://m.foreca.fi/index.php?l=100658225"
     reply = fetch_uri(uri)
     return "" if (reply.code != "200")
 
     doc = Nokogiri::HTML(reply.body)
-
     trs = doc.css("#cc tr")
 
-    datetd = trs[0].css("th").first.content
-    timetd = trs[2].css("td")[0].content
-    degreetd = trs[2].css("td")[1].css("span").first.content
-    infotd = trs[3].css("td").first
-
-    date = ""
-    if datetd =~ /Current conditions ([\d]+)\/([\d+]+)/
-      date = "#{$1}.#{$2}. "
-    end
-
-    feels_like = ""
-    if infotd.content =~ /.*(Feels Like: [^ \t]+).*/
-       feels_like = ", #{$1}"
-    end
-    at = infotd.css("a").first.content
-    return "#{date}kello #{timetd}: #{degreetd} C#{feels_like} (#{at})"
+    day, month = /([\d]+)\/([\d]+)/.match(trs.first.css("th").first.content)[1,2]
+    time = trs[2].css("td")[0].content
+    real_temp = trs[2].css("td span").first.content
+    feels_like = /Feels Like: ([^ \t]+)/.match(trs[3].css("td").first.content)[1]
+    location = trs[3].css("td a").first.content
+    return "#{real_temp} C, feels like #{feels_like} C, #{day}.#{month}. #{time} @#{location}"
   end
 end
 
