@@ -37,5 +37,12 @@ class TestModule_Spotify < Test::Unit::TestCase
       @bot.expects(:send_privmsg).with("#channel", exp_result)
       @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
     end
+    should "reply to playlist" do
+      uri = "http://open.spotify.com/user/aki.saarinen/playlist/0gjvtUd1utQnMQJq66HXxX"
+      exp_result = 
+          "Spotify playlist: UV11 by aki.saarinen"
+      @bot.expects(:send_privmsg).with("#channel", exp_result)
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
   end
 end

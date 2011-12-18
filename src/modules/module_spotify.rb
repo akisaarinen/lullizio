@@ -25,6 +25,12 @@ class Module_Spotify
         artist = reply["artist"]["name"]
         reply_str = "Spotify artist: #{artist}"
         bot.send_privmsg(reply_to, reply_str)
+      elsif word =~ /^http[s]?:\/\/open.spotify.com\/user\/(.+)\/playlist\/(.+)/
+        reply = requestPlaylist($1, $2)
+        name = reply["name"]
+        user = reply["user"]
+        reply_str = "Spotify playlist: #{name} by #{user}"
+        bot.send_privmsg(reply_to, reply_str)
       elsif word =~ /^http[s]?:\/\/open.spotify.com\/album\/(.+)/
         reply = requestAlbum($1)
         artist = reply["album"]["artist"]
@@ -57,6 +63,17 @@ class Module_Spotify
     puts "Requesting #{uri} from spotify"
     reply = fetch_uri(uri)
     JSON.parse(reply.body)
+  end
+  
+  def requestPlaylist(user, id)
+      uri = "http://open.spotify.com/user/#{user}/playlist/#{id}"
+      reply = fetch_uri(uri)
+
+      name = if reply.body =~ /<title>(.*) by (.*) on Spotify<\/title>/m then $1 else "Unknown" end
+      {
+          "name" => name,
+          "user" => user
+      }
   end
 end
 
