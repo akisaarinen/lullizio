@@ -20,6 +20,11 @@ class Module_Spotify
         year = reply["track"]["album"]["released"]
         reply_str = "Spotify: #{artist} - #{trackName} [#{mins}:#{secs}] (#{year} album #{album})"
         bot.send_privmsg(reply_to, reply_str)
+      elsif word =~ /^http[s]?:\/\/open.spotify.com\/artist\/(.+)/
+        reply = requestArtist($1)
+        artist = reply["artist"]["name"]
+        reply_str = "Spotify artist: #{artist}"
+        bot.send_privmsg(reply_to, reply_str)
       end
     }
   end
@@ -30,6 +35,10 @@ class Module_Spotify
 
   def requestTrack(id) 
       requestSpotifyUri("spotify:track:#{id}")
+  end
+
+  def requestArtist(id) 
+      requestSpotifyUri("spotify:artist:#{id}")
   end
 
   def requestSpotifyUri(spotifyUri) 
