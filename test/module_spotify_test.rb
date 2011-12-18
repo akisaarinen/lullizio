@@ -30,5 +30,12 @@ class TestModule_Spotify < Test::Unit::TestCase
       @bot.expects(:send_privmsg).with("#channel", exp_result)
       @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
     end
+    should "reply to album" do
+      uri = "http://open.spotify.com/album/4LTuhh4qpSn8uUrjhiWTj3"
+      exp_result = 
+          "Spotify album: Daft Punk - TRON Legacy: Reconfigured (2011)"
+      @bot.expects(:send_privmsg).with("#channel", exp_result)
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
   end
 end
