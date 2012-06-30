@@ -19,6 +19,11 @@ class TestModule_Twitter < Test::Unit::TestCase
       @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
     end
     
+    should "not reply to fake twitter domain status" do
+      uri = "https://faketwitter.com/beyondcontent/statuses/74248480662622209" 
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
+    
     should "reply to twitter status with HTTP using standard URLs" do
       uri = "http://twitter.com/beyondcontent/statuses/74248480662622209" 
       exp_result = 
@@ -30,6 +35,15 @@ class TestModule_Twitter < Test::Unit::TestCase
     
     should "reply to twitter status with HTTPS using standard URLs" do
       uri = "https://twitter.com/beyondcontent/statuses/74248480662622209" 
+      exp_result = 
+        "@beyondcontent (Andrew McGarry): " + 
+        "Ryanair still using cookie history to inflate prices. My folks saved £100 by deleting cookie from yesterday's browsing session."
+      @bot.expects(:send_privmsg).with("#channel", exp_result)
+      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
+    end
+
+    should "reply to twitter status with HTTPS using standard URLs from twitter subdomain" do
+      uri = "https://mobile.twitter.com/beyondcontent/statuses/74248480662622209" 
       exp_result = 
         "@beyondcontent (Andrew McGarry): " + 
         "Ryanair still using cookie history to inflate prices. My folks saved £100 by deleting cookie from yesterday's browsing session."

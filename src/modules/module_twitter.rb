@@ -8,8 +8,8 @@ class Module_Twitter
   
   def privmsg(bot, from, reply_to, msg)
     msg.split(" ").each { |word|
-      if word =~ /^http[s]?:\/\/twitter.com\/(.*)\/status(|es)\/([0-9]+)/
-        reply = requestStatus($3)
+      if word =~ /^http[s]?:\/\/(.*\.|)twitter.com\/(.*)\/status(|es)\/([0-9]+)/
+        reply = requestStatus($4)
         user = reply['user']['screen_name']
         full = reply['user']['name']
         text = reply['text']
