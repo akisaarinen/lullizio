@@ -1,8 +1,8 @@
-# -*- encoding : utf-8 -*-
 #!/usr/bin/env ruby
+# -*- encoding : utf-8 -*-
 
-require "bot"
-require "module_handler"
+require "./bot"
+require "./module_handler"
 
 base_path = ARGV.shift
 config_file = base_path + "/" + (ARGV.shift || "config.yml")

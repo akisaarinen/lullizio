@@ -63,12 +63,6 @@ private
        gsub("8-D", " dick ").
        gsub("<3", "love").
        gsub("="," equals ").
-       gsub("\345","å").
-       gsub("\344","ä").
-       gsub("\366","ö").
-       gsub("\305","Å").
-       gsub("\304","Ä").
-       gsub("\326","Ö").
        gsub(/([ ]|^)tj([ ]|$)/i,"\\1chief executive officer\\2").
        gsub(/([ ]|^)ap([ ]|$)/i,"\\1yrro mi paysa\\2").
        gsub(/[^a-zA-Z0-9åäöÅÄÖ ,.:;!?'#€%\/()\-_<>]/u,"").

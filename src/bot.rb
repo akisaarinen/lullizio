@@ -8,6 +8,8 @@ require "irc_connector"
 require "module_handler"
 require "yaml"
 
+YAML::ENGINE.yamler = 'syck'
+
 class Bot
   attr_accessor :nick, :connected, :base_path, :module_config
 
