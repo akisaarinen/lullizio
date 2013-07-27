@@ -24,4 +24,4 @@ Requirements
 ------------
 
 * Ruby 1.8.7
-* `gem install shoulda mocha htmlentities json`
+* `gem install shoulda mocha htmlentities json twitter`

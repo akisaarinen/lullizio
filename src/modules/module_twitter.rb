@@ -1,5 +1,6 @@
 require 'htmlentities'
 require 'json'
+require 'twitter'
 
 Kernel.load("fetch_uri.rb")
 
@@ -9,7 +10,7 @@ class Module_Twitter
   def privmsg(bot, from, reply_to, msg)
     msg.split(" ").each { |word|
       if word =~ /^http[s]?:\/\/(.*\.|)twitter.com\/(.*)\/status(|es)\/([0-9]+)/
-        reply = requestStatus($4)
+        reply = Twitter.status($4)
         user = reply['user']['screen_name']
         full = reply['user']['name']
         text = reply['text']
@@ -20,13 +21,5 @@ class Module_Twitter
   end
 
   def botmsg(bot,target,msg) end
-
-  private
-
-  def requestStatus(id) 
-    uri = "http://api.twitter.com/1/statuses/show/#{id}.json"
-    reply = fetch_uri(uri)
-    JSON.parse(reply.body)
-  end
 end
 
