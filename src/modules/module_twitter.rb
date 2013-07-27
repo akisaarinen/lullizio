@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'htmlentities'
 require 'json'
 require 'twitter'

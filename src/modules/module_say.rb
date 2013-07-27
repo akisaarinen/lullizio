@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Module_Say
   def init_module(bot) 
     @user_voices = ["Alex", "Bruce", "Fred", "Junior", "Agnes", "Kathy", "Princess", "Vicki", "Victoria"]

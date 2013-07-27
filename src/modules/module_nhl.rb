@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'htmlentities'
 
 Kernel.load("fetch_uri.rb")
@@ -7,7 +8,7 @@ class Module_Nhl
   
   def privmsg(bot, from, reply_to, msg)
     msg.split(" ").each { |word|
-      if word =~ /^nhl|^[\344]n[\344]ri|^änäri/
+      if word =~ /^nhl|^änäri/
         bot.send_privmsg(reply_to, "änäri! woo-o-o! änäri! woo-o-o!")
         #bot.send_privmsg(reply_to, "Enää #{time_until_nhl} päivää!!1")
       end

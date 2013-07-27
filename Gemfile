@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+gem 'shoulda'
+gem 'mocha'
+gem 'htmlentities'
+gem 'json'
+gem 'twitter'

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.dirname(__FILE__) + '/test_helper.rb'
 require 'modules/module_newstitle.rb'
 
@@ -57,35 +58,7 @@ class TestModule_Newstitle < Test::Unit::TestCase
 
     should "reply to Iltasanomat.fi article" do
       uri = "http://www.iltasanomat.fi/hyvaolo/suhteet.asp?id=1822711"
-      exp_result = "Koska flirtti puree naiseen?"
-      @bot.expects(:send_privmsg).with("#channel", exp_result)
-      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
-    end
-    
-    should "reply to yle.fi article" do
-      uri = "http://yle.fi/alueet/lahti/2011/03/lottopallot_eivat_tottele_matematiikkaa_2460861.html"
-      exp_result = "Lottopallot eivät tottele matematiikkaa | Lahti"
-      @bot.expects(:send_privmsg).with("#channel", exp_result)
-      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
-    end
-    
-    should "reply to talouselama.fi article" do
-      uri = "http://www.talouselama.fi/uutiset/article598724.ece"
-      exp_result = "Suomen suurimmasta amk:sta tuli pelon pesä"
-      @bot.expects(:send_privmsg).with("#channel", exp_result)
-      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
-    end
-
-    should "reply to mtv3.fi article" do
-      uri = "http://www.mtv3.fi/uutiset/rikos.shtml/arkistot/rikos/2010/01/1045360"
-      exp_result = "Humalainen konstaapeli ajoi lumipenkkaan anastamallaan poliisiautolla"
-      @bot.expects(:send_privmsg).with("#channel", exp_result)
-      @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
-    end
-    
-    should "reply to kauppalehti.fi talous article" do
-      uri = "http://www.kauppalehti.fi/5/i/talous/uutiset/etusivu/uutinen.jsp?oid=20110782099"
-      exp_result = "Kiinalaiset hamuavat luksusta - veronalennus vauhdittaa myynti\344"
+      exp_result = "Koska flirtti puree naiseen? - Seksi ja parisuhde"
       @bot.expects(:send_privmsg).with("#channel", exp_result)
       @module.privmsg(@bot, "someone", "#channel", "some text with #{uri} inside")
     end

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Module_Lmgtfy
   def init_module(bot) end
   def privmsg(bot, from, reply_to, msg)

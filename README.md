@@ -23,5 +23,4 @@ Based originally loosely on example code from http://snippets.dzone.com/posts/sh
 Requirements
 ------------
 
-* Ruby 1.8.7
-* `gem install shoulda mocha htmlentities json twitter`
+* Ruby 1.9.3

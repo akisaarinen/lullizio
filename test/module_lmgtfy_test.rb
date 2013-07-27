@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.dirname(__FILE__) + '/test_helper.rb'
 require 'modules/module_lmgtfy.rb'
 

@@ -1,6 +1,15 @@
-gem install htmlentities shoulda mocha
+bundler install
 
 cp example_config.yml myconfig.yml
+
 vim myconfig.yml
+
+# The following step is optional, if you want to use Twitter support, export the following env variables to `twitter_env` file.
+# TWITTER_CONSUMER_KEY
+# TWITTER_CONSUMER_SECRET
+# TWITTER_OAUTH_TOKEN
+# TWITTER_OAUTH_TOKEN_SECRET
+vim twitter_env 
+
 ./run_bot.sh myconfig.yml
 

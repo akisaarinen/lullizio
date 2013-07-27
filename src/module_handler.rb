@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ModuleHandler
   attr_accessor :modules
 
