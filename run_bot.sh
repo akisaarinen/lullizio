@@ -1,8 +1,8 @@
 #!/bin/bash
 BASE_PATH=`pwd`
-pushd src
+pushd lib
 if [ -f "twitter_env" ]; then
   source twitter_env
 fi
-./runner.rb "${BASE_PATH}" "$1"
+./lullizio.rb "${BASE_PATH}" "$1"
 popd

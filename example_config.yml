@@ -4,7 +4,7 @@ nick:             my_bot
 username:         my_bot
 realname:         My Lullizio Bot
 channels:         ["#mybot_pwns", "#lullizio_ftw"]
-modules_dir:      "src/modules"
+modules_dir:      "lib/modules"
 excluded_modules: []
 module_config:
   module_value:   "some example value for module usage"
