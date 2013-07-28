@@ -20,7 +20,7 @@ class Module_Weather
   private
 
   def find_weather
-    uri = "http://m.foreca.fi/index.php?l=100658225"
+    uri = "http://m.foreca.fi/old/index.php?l=100658225"
     reply = fetch_uri(uri)
     return "" if (reply.code != "200")
 
