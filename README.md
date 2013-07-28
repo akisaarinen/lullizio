@@ -22,11 +22,11 @@ Features
 Installing
 ----------
 
-# Install Ruby 1.9.3 (tested using `rvm`)
-# `bundler install`
-# `cp example_config.yml my_bot.yml`
-# `vim my_bot.yml`
-# `bin/lullizio my_bot.yml`
+1. Install Ruby 1.9.3 (tested using `rvm`)
+2. `bundler install`
+3. `cp example_config.yml my_bot.yml`
+4. `vim my_bot.yml`
+5. `bin/lullizio my_bot.yml`
 
 Additionally, if you want to use Twitter support, export the following
 environment variables before running:
