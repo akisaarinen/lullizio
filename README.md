@@ -23,7 +23,7 @@ Installing
 ----------
 
 1. Install Ruby >= 1.9 (tested using Ruby 1.9.3 and `rvm`)
-2. `bundler install`
+2. `bundle install`
 3. `cp example_config.yml my_bot.yml`
 4. `vim my_bot.yml`
 5. `bin/lullizio my_bot.yml`
