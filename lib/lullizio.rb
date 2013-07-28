@@ -1,14 +1,13 @@
 #!/usr/bin/env ruby
 # -*- encoding : utf-8 -*-
 
-require "./bot"
-require "./module_handler"
+require_relative "bot"
+require_relative "module_handler"
 
-base_path = ARGV.shift
-config_file = base_path + "/" + (ARGV.shift || "config.yml")
+config_file =  (ARGV.shift || "config.yml")
 
 module_handler = ModuleHandler.new
-bot = Bot.new(base_path, config_file, module_handler)
+bot = Bot.new(config_file, module_handler)
 bot.connect()
 begin
   while true

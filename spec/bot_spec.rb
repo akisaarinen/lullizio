@@ -14,7 +14,6 @@ describe "TestBot" do
       "modules_dir" => "modules_dir",
       "module_config" => {"some key" => "some value"}
     }
-    @base_path = "base_path"
     @config_path = "path/to/config_file.yml"
     expect(YAML).to receive(:load_file).with(@config_path).and_return(@config)
     @module_handler = double()
@@ -23,30 +22,26 @@ describe "TestBot" do
   
   context "Bot" do
 	before (:each) do
-	  @bot = Bot.new(@base_path, @config_path, @module_handler)
+	  @bot = Bot.new(@config_path, @module_handler)
 	end
 
     it "load nickname from config in initialization" do 
 	  expect(@bot.nick).to eq("nick")
     end
 
-    it "give base path" do
-	  expect(@bot.base_path).to equal(@base_path)
-    end
-
     it "give module specific configuration" do 
       expect(@bot.module_config).to eq(({"some key" => "some value"}))
     end
 
-    it "add modules dir with base path to $LOAD_PATH" do
-      expect($LOAD_PATH.include?("base_path/modules_dir")).to eq(true)
+    it "add modules dir to $LOAD_PATH" do
+      expect($LOAD_PATH.include?("modules_dir")).to eq(true)
     end
   end
 
   context "Disconnected Bot" do
 	before(:each) do
 	  @connector = double()
-	  @bot = Bot.new(@base_path, @config_path, @module_handler)
+	  @bot = Bot.new(@config_path, @module_handler)
 	  expect(@bot).to receive(:create_connector).
 		  with("server", 6667, "nick", "username", "realname", ["#first", "#second"]).
 		  and_return(@connector)
@@ -72,7 +67,7 @@ describe "TestBot" do
   context "Connected Bot" do
 	before(:each) do
 	  @connector = double()
-	  @bot = Bot.new(@base_path, @config_path, @module_handler)
+	  @bot = Bot.new(@config_path, @module_handler)
 	  expect(@bot).to receive(:create_connector).and_return(@connector)
 	  expect(@connector).to receive(:connect)
 	  @bot.connect

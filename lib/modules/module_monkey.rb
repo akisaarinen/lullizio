@@ -4,9 +4,8 @@ require "yaml"
 class Module_Monkey
   def init_module(bot)
     filename = bot.module_config["monkey_file"]
-    cfg_file = bot.base_path + "/" + filename
-    puts "Reading monkey config from '#{cfg_file}'"
-    @expressions = YAML.load_file(cfg_file)
+    puts "Reading monkey config from '#{filename}'"
+    @expressions = YAML.load_file(filename)
   end
 
   def privmsg(bot, from, reply_to, msg)

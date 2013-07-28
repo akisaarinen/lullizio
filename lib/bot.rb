@@ -1,20 +1,17 @@
 # -*- encoding : utf-8 -*-
-$:.unshift(File.dirname(__FILE__)) unless
-  $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
-
 require "rubygems"
 require 'bundler/setup'
-require "irc_connector"
-require "module_handler"
 require "yaml"
+
+require_relative "irc_connector"
+require_relative "module_handler"
 
 YAML::ENGINE.yamler = 'syck'
 
 class Bot
   attr_accessor :nick, :connected, :base_path, :module_config
 
-  def initialize(base_path, config_file, module_handler)
-    @base_path = base_path
+  def initialize(config_file, module_handler)
     @config_file = config_file
     @module_handler = module_handler
     @connected = false
@@ -70,7 +67,7 @@ class Bot
     @username = config["username"]
     @realname = config["realname"]
     @channels = config["channels"]
-    @modules_dir = @base_path + "/" + config["modules_dir"]
+    @modules_dir = config["modules_dir"]
     @excluded_modules = config["excluded_modules"]
     @module_config = config["module_config"]
     $LOAD_PATH << @modules_dir

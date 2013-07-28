@@ -10,7 +10,7 @@ class Module_Weather
   def privmsg(bot, from, reply_to, msg)
 
     msg.split(" ").each { |word|
-      if word =~ /^s[\344][\344]$|^sää$/
+      if word =~ /^sää$/
         bot.send_privmsg(reply_to, find_weather())
       end
     }
