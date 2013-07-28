@@ -14,10 +14,5 @@ Rake::TestTask.new do |t|
   t.warning = true
 end
 
-desc "Search unfinished parts of source code"
-task :todo do
-  FileList["**/*.rb"].egrep /#.*(TODO|FIXME)/
-end
-
 task :default => :test
 
