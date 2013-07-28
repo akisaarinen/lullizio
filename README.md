@@ -1,11 +1,14 @@
-A simple IRC bot written in Ruby, mostly for my own amusement purposes.
+A simple IRC bot written in Ruby, mostly for my own amusement purposes. Has
+been running in production since 2009. Not the prettiest little fellow, but
+scratches my itch very well. Occasionally updated with new features when needs
+pop up.
 
 Features
 --------
 * Dynamic reloading of modules on-the-fly so the bot can stay online while being
-  updated. Ruby makes this rather easy.
+  updated. This makes doing small improvements or hacks convenient.
 * A few useful modules to improve the IRC experience
-  * YouTube: fetch youtube urls and tell the title, rating etc. to channel
+  * YouTube: fetch youtube urls and tell the title, rating etc.
   * Twitter: show contents of a twitter status link
   * Newstitle: fetch and shout title to channel for popular Finnish news sites
     when somene posts an url to a piece of news
@@ -16,11 +19,25 @@ Features
   * LMGTFY: someone asks a stupid question? No problem, you can be a smartass and
     support this by easily linking the topic in [lmgtfy](http://lmgtfy.com/?q=lmgtfy).
 
-References
+Installing
 ----------
-Based originally loosely on example code from http://snippets.dzone.com/posts/show/1785.
 
-Requirements
-------------
+# Install Ruby 1.9.3 (tested using `rvm`)
+# `bundler install`
+# `cp example_config.yml my_bot.yml`
+# `vim my_bot.yml`
+# `bin/lullizio my_bot.yml`
 
-* Ruby 1.9.3
+Additionally, if you want to use Twitter support, export the following
+environment variables before running:
+
+```
+export TWITTER_CONSUMER_KEY=""
+export TWITTER_CONSUMER_SECRET=""
+export TWITTER_OAUTH_TOKEN=""
+export TWITTER_OAUTH_TOKEN_SECRET=""
+```
+
+The runner will automatically check for `lullizio.env`, and load it before
+starting the bot, so that could be the place to add them. Or somewhere else,
+whatever.
