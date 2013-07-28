@@ -6,13 +6,8 @@ version = "0.1"
 
 require "rake/clean"
 
-require "rake/testtask"
-desc "Run tests"
-Rake::TestTask.new do |t|
-  t.test_files = FileList["test/*_test.rb"]
-  t.verbose = true
-  t.warning = true
-end
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec)
 
-task :default => :test
+task :default => :spec
 

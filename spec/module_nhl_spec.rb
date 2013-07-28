@@ -2,15 +2,15 @@
 require File.dirname(__FILE__) + '/test_helper.rb'
 require 'modules/module_nhl.rb'
 
-class TestModule_Nhl < Test::Unit::TestCase
+describe 'Module_Nhl' do
   context "NHL module" do
-    setup do
-      @bot = mock()
+    before(:each) do
+      @bot = double()
       @module = Module_Nhl.new
       @module.init_module(@bot)
     end
     
-    should "not reply to random text" do
+    it "not reply to random text" do
       text = "foo bar baz"
       @module.privmsg(@bot, "someone", "#channel", text)
     end
@@ -18,6 +18,6 @@ class TestModule_Nhl < Test::Unit::TestCase
 
   def fake_time
     fake_now = Time.local(2011,8,24)
-    @module.stubs(:time_now).returns(fake_now)
+    expect(@module).to receive(:time_now).and_return(fake_now)
   end
 end
