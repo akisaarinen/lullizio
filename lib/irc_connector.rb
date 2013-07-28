@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require "socket"
+require "UniversalDetector"
 
 class IrcMsg
   NO_MSG = 0
@@ -20,7 +21,10 @@ class PrivMsg < IrcMsg
     super(IrcMsg::PRIVMSG)
     @from = from
     @target = target
-    @text = text
+	detector = UniversalDetector::chardet(text)
+	source_encoding = "utf-8"
+	source_encoding = "ISO8859-1" if detector["encoding"] != "utf-8"
+    @text = text.encode('utf-8', source_encoding, :invalid => :replace, :undef => :replace, :replace => '')
   end
 end
 
